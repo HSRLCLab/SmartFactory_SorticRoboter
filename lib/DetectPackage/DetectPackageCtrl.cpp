@@ -1,11 +1,25 @@
-#include <DetectPackageCtrl.h>
+#include "DetectPackageCtrl.h"
 
 DetectPackageCtrl::DetectPackageCtrl() : currentState (State::emptyState), doActionFPtr (&DetectPackageCtrl::doAction_emptyState)
 {
     
 }
 
-DetectPackageCtrl::Event process(Event e)
+void DetectPackageCtrl::loop()
+{
+    DBFUNCCALLln("DetectPackageCtrl::loop()");
+    process((this->*doActionFPtr)());
+}
+
+void DetectPackageCtrl::loop(Event currentEvent)
+{
+    DBFUNCCALLln("DetectPackageCtrl::loop(Event)");
+    process(currentEvent);
+    process((this->*doActionFPtr)());
+}
+
+
+void DetectPackageCtrl::process(Event e)
 {
     DBFUNCCALL("DetectPackageCtrl::process ")
     DBEVENTln(String("DetectPackageCtrl ") + String(decodeEvent(e)));
@@ -23,13 +37,13 @@ DetectPackageCtrl::Event process(Event e)
                 entryAction_errorState();
             }
             break;
-        case State::checking
+        case State::checking:
             if (Event::PackageAvailableToSort == e)
             {
                 exitAction_checking();
                 entryAction_fullState();
             }
-            else if (Event::NoPackageReady == e)
+            else if (Event::NoPackageAvailable == e)
             {
                 exitAction_checking();
                 entryAction_emptyState();
@@ -40,8 +54,8 @@ DetectPackageCtrl::Event process(Event e)
                 entryAction_errorState();
             }
             break;
-        case State::fullState
-            if (Event::PackageReadyToSort)
+        case State::fullState:
+            if (Event::PackageReadyToSort == e)
             {
                 exitAction_fullState();
                 entryAction_emptyState();
@@ -52,17 +66,17 @@ DetectPackageCtrl::Event process(Event e)
                 entryAction_errorState();
             }
             break;
-        case State::errorState
+        case State::errorState:
             exitAction_errorState();
             switch (lastStateBevorError)
             {
                 case State::emptyState:
                     entryAction_emptyState();
                     break;
-                case State::checking
+                case State::checking:
                     entryAction_checking();
                     break;
-                case State::fullState
+                case State::fullState:
                     entryAction_fullState();
                     break;
                 default:
@@ -73,85 +87,82 @@ DetectPackageCtrl::Event process(Event e)
     }
 }
 
-void entryAction_emptyState()
+void DetectPackageCtrl::entryAction_emptyState()
 {
     DBSTATUSln("Entering State: emptyState")
     currentState = State::emptyState;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_emptyState();
+    doActionFPtr = &DetectPackageCtrl::doAction_emptyState;
     // TODO need a Low indicator?
 }
 
-DetectPackageCtrl::Event doAction_emptyState()
+DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
 {
-    DBINFO01ln("State: emptyState")
+    DBINFO1ln("State: emptyState");
     delay(1000);
     
-    return Event::CheckForPackage
+    return Event::CheckForPackage;
 }
 
- void exitAction_emptyState()
+ void DetectPackageCtrl::exitAction_emptyState()
  {
      DBSTATUSln("Leaving State: emptyState")
  }
 
- void entryAction_checking()
+ void DetectPackageCtrl::entryAction_checking()
  {
     DBSTATUSln("Entering State: checking")
     currentState = State::checking;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_checking();
+    doActionFPtr = &DetectPackageCtrl::doAction_checking;
 
  }
 
- DetectPackageCtrl::Event doAction_checking()
+ DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
  {
-     DBINFO01ln("State: checking")
-     if (!pRfidCtrl.isPackageAvailable)
+     DBINFO1ln("State: checking");
+     if (!pRfidReader.isPackageAvailable())
      {
         return Event::NoPackageAvailable;               
      }
-     else
-     {
-         newPackage = pRfidCtrl->getPackageInformation();
-         return Event::PackageAvailableToSort;
-     }
-
+     
+     newPackage = pRfidReader.getPackageInformation();
+     return Event::PackageAvailableToSort;
  }
 
- void exitAction_checking()
+ void DetectPackageCtrl::exitAction_checking()
  {
      DBSTATUSln("Leaving State: checking");
 
  }
 
- void entryAction_fullState()
+ void DetectPackageCtrl::entryAction_fullState()
  {
     DBSTATUSln("Entering State: checking")
     currentState = State::fullState;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_fullState();
+    doActionFPtr = &DetectPackageCtrl::doAction_fullState;
 
  }
 
- DetectPackageCtrl::Event doAction_fullState()
+ DetectPackageCtrl::Event DetectPackageCtrl::doAction_fullState()
  {
      DBINFO1ln("State: fullState");
 
      return Event::PackageReadyToSort;
  }
 
- void exitAction_fullState()
+ void DetectPackageCtrl::exitAction_fullState()
  {
      DBSTATUSln("Leaving State: fullState");
  }
 
- void BoxLevelCtrl::entryAction_errorState() 
+ void DetectPackageCtrl::entryAction_errorState() 
  {
     DBERROR("Entering State: errorState");
     lastStateBevorError = currentState;
     currentState = State::errorState;  // set errorState
-    doActionFPtr = &BoxLevelCtrl::doAction_errorState;
+    doActionFPtr = &DetectPackageCtrl::doAction_errorState;
 }
 
-BoxLevelCtrl::Event BoxLevelCtrl::doAction_errorState() 
+DetectPackageCtrl::Event DetectPackageCtrl::doAction_errorState() 
 {
     DBINFO1ln("State: errorState");
     //Generate the Event
@@ -159,12 +170,12 @@ BoxLevelCtrl::Event BoxLevelCtrl::doAction_errorState()
     return Event::NoEvent;
 }
 
-void BoxLevelCtrl::exitAction_errorState() 
+void DetectPackageCtrl::exitAction_errorState() 
 {
     DBSTATUSln("Leaving State: errorState");
 }
 
-String BoxLevelCtrl::decodeState(State state) 
+String DetectPackageCtrl::decodeState(State state) 
 {
     switch (state) 
     {
@@ -186,20 +197,21 @@ String BoxLevelCtrl::decodeState(State state)
     }
 }
 
-String BoxLevelCtrl::decodeEvent(Event event) 
+String DetectPackageCtrl::decodeEvent(Event event) 
 {
-    switch (event) {
+    switch (event) 
+    {
         case Event::CheckForPackage:
             return "Event::CheckForPackage";
             break;
-        case Event::NoPackageReady:
-            return "Event::NoPackageReady";
+        case Event::NoPackageAvailable:
+            return "Event::NoPackageAvailable";
             break;
         case Event::PackageAvailableToSort:
             return "Event::PackageAvailableToSort";
             break;
         case Event::PackageReadyToSort:
-            return "Event::PackageReadyToSort"
+            return "Event::PackageReadyToSort";
             break;
         case Event::Error:
             return "Event::Error";
@@ -214,3 +226,4 @@ String BoxLevelCtrl::decodeEvent(Event event)
             return "ERROR: No matching event";
             break;
     }
+}
