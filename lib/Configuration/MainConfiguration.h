@@ -1,0 +1,7 @@
+#ifndef MAINCONFIGURATION_H
+#define MAINCONFIGURATION_H
+
+#define RFIDDETECTOR_SDA         10
+#define RFIDDETECTOR_RST_PIN     9
+
+#endif
