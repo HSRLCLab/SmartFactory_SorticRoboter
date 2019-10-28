@@ -1,5 +1,5 @@
-#ifndef RFIDCTRL_H
-#define RFIDCTRL_H
+#ifndef RFIDREADERCTRL_H
+#define RFIDREADERCTRL_H
 
 #include <Arduino.h>
 #include <MFRC522.h>
@@ -9,24 +9,25 @@
 
 
 
-class RfidCtrl
+    
+
+class RfidReaderCtrl
 {
    public:
 
-    RfidCtrl();
+    RfidReaderCtrl();
     Package getPackageInformation();
     bool isPackageAvailable();
 
    private:
 
-    MFRC522 pRfidReader(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);
+    MFRC522 pReader(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);
     MFRC522::MIFARE_Key key;//create a MIFARE_Key struct named 'key', which will hold the card information
-
     byte readBlockMatrix[16][18];
     Package package;
 
-    Stream &readPackage(Stream &obj);
-    int readBlock(int blockNumber, byte arrayAddress);
+    int readPackage();
+    int readBlock(int blockNumber, byte* arrayAddress);
     void parseInformationToStruct();
 
 };
