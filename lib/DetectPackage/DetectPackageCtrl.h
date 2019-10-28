@@ -3,7 +3,7 @@
 #define DETECTPACKAGECTRL_H_
 
 #include <Arduino.h>
-#include "RfidCtrl.h"
+#include "RfidReaderCtrl.h"
 
 
 
@@ -22,12 +22,14 @@ class DetectPackageCtrl
         NoEvent = 6
     };
 
+    void loop();
+
+    void loop(Event currentEvent);
+
     
     Package newPackage;
 
     DetectPackageCtrl();
-
-    DetectPackageCtrl::Event process(Event e);
 
     private:
 
@@ -43,10 +45,11 @@ class DetectPackageCtrl
     State currentState;         // holds the current state of the FSM
     Event currentEvent;         // holds the current event of the FSM
 
-    RfidCtrl pRfidCtrl;
-
+    RfidReaderCtrl pRfidReader;
 
     DetectPackageCtrl::Event (DetectPackageCtrl::*doActionFPtr)(void) = 0;
+
+    void process(Event e);
 
     void entryAction_emptyState();
 
@@ -66,6 +69,8 @@ class DetectPackageCtrl
 
     void exitAction_fullState();
 
+    void entryAction_errorState();
+
     DetectPackageCtrl::Event doAction_errorState();
 
     void exitAction_errorState();
@@ -73,6 +78,6 @@ class DetectPackageCtrl
     String decodeEvent(Event event);
 
     String decodeState(State state);
-}
+};
 
 #endif
