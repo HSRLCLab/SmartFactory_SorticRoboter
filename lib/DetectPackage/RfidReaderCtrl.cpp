@@ -3,7 +3,7 @@
 RfidReaderCtrl::RfidReaderCtrl()
 {
     SPI.begin();
-    pReader.PCD_Init();
+    pReader->PCD_Init();
     for (byte i = 0; i < 6; i++) 
     {
         key.keyByte[i] = 0xFF;//keyByte is defined in the "MIFARE_Key" 'struct' definition in the .h file of the library
@@ -12,7 +12,7 @@ RfidReaderCtrl::RfidReaderCtrl()
 
 bool RfidReaderCtrl::isPackageAvailable()
 {
-    if (pReader.PICC_IsNewCardPresent())
+    if (pReader->PICC_IsNewCardPresent())
     {
         return true;
     }
@@ -20,14 +20,13 @@ bool RfidReaderCtrl::isPackageAvailable()
     {
         return false;
     }
-    
 }
 
 Package RfidReaderCtrl::getPackageInformation()
 {
     DBFUNCCALL("RfidReaderCtrl::getPackageInformation");
     DBINFO3("Return information about package in a struct");
-    return package;
+    return *package;
 }
 
 
@@ -37,22 +36,22 @@ void RfidReaderCtrl::parseInformationToStruct()
     DBINFO3("Parse the package information to a struct");
     for (int i = 0; i < 18; i++)
     {
-        package.id += readBlockMatrix[2][i];
+        package->id += readBlockMatrix[2][i];
     }
     
     for (int i = 0; i < 18; i++)
     {
-        package.cargo += readBlockMatrix[3][i];
+        package->cargo += readBlockMatrix[3][i];
     }
 
     for (int i = 0; i < 18; i++)
     {
-        package.targetDest += readBlockMatrix[4][i];
+        package->targetDest += readBlockMatrix[4][i];
     }
 
     for (int i = 0; i < 18; i++)
     {
-        package.targetReg += readBlockMatrix[5][i];
+        package->targetReg += readBlockMatrix[5][i];
     }
 }
 
@@ -61,7 +60,7 @@ int RfidReaderCtrl::readPackage()
     DBFUNCCALL("RfidReaderCtrl::readPackage()");
     DBINFO3("Read the information on the rfid-transponder");
     
-    if (pReader.PICC_IsNewCardPresent() && pReader.PICC_ReadCardSerial() && pReader.uid.size != 0) 
+    if (pReader->PICC_IsNewCardPresent() && pReader->PICC_ReadCardSerial() && pReader->uid.size != 0) 
     {
         DBINFO3("Scanner detected package");
         // Read 16 blocks and store it in a matrix
@@ -96,7 +95,7 @@ int RfidReaderCtrl::readBlock(int blockNumber, byte* arrayAddress)
   int largestModulo4Number=blockNumber/4*4;
   int trailerBlock=largestModulo4Number+3;
 
-  byte status = pReader.PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, trailerBlock, &key, &(pReader.uid));
+  byte status = pReader->PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, trailerBlock, &key, &(pReader->uid));
   
   if (status != MFRC522::STATUS_OK) 
   {
@@ -106,7 +105,7 @@ int RfidReaderCtrl::readBlock(int blockNumber, byte* arrayAddress)
   }
           
   byte buffersize = 18; // variable to store buffersize
-  status = pReader.MIFARE_Read(blockNumber, arrayAddress, &buffersize); //&buffersize is a pointer to the buffersize variable; MIFARE_Read requires a pointer instead of just a number
+  status = pReader->MIFARE_Read(blockNumber, arrayAddress, &buffersize); //&buffersize is a pointer to the buffersize variable; MIFARE_Read requires a pointer instead of just a number
   if (status != MFRC522::STATUS_OK) 
   {
     DBINFO3("MIFARE_read() failed: ");

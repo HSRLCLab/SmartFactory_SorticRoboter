@@ -27,7 +27,7 @@ class DetectPackageCtrl
     void loop(Event currentEvent);
 
     
-    Package newPackage;
+    Package *newPackage = new Package();
 
     DetectPackageCtrl();
 
@@ -45,7 +45,7 @@ class DetectPackageCtrl
     State currentState;         // holds the current state of the FSM
     Event currentEvent;         // holds the current event of the FSM
 
-    RfidReaderCtrl pRfidReader;
+    RfidReaderCtrl *pRfidReader = new RfidReaderCtrl();
 
     DetectPackageCtrl::Event (DetectPackageCtrl::*doActionFPtr)(void) = 0;
 

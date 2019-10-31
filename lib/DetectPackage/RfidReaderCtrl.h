@@ -9,8 +9,6 @@
 
 
 
-    
-
 class RfidReaderCtrl
 {
    public:
@@ -18,13 +16,13 @@ class RfidReaderCtrl
     RfidReaderCtrl();
     Package getPackageInformation();
     bool isPackageAvailable();
-
+    
    private:
 
-    MFRC522 pReader(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);
-    MFRC522::MIFARE_Key key;//create a MIFARE_Key struct named 'key', which will hold the card information
+    MFRC522 *pReader = new MFRC522(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);
+    MFRC522::MIFARE_Key key;  //create a MIFARE_Key struct named 'key', which will hold the card information
     byte readBlockMatrix[16][18];
-    Package package;
+    Package *package = new Package();
 
     int readPackage();
     int readBlock(int blockNumber, byte* arrayAddress);

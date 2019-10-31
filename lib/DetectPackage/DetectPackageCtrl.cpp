@@ -8,12 +8,14 @@ DetectPackageCtrl::DetectPackageCtrl() : currentState (State::emptyState), doAct
 void DetectPackageCtrl::loop()
 {
     DBFUNCCALLln("DetectPackageCtrl::loop()");
+    Serial.println("State2");
     process((this->*doActionFPtr)());
 }
 
 void DetectPackageCtrl::loop(Event currentEvent)
 {
     DBFUNCCALLln("DetectPackageCtrl::loop(Event)");
+    Serial.println("State3");
     process(currentEvent);
     process((this->*doActionFPtr)());
 }
@@ -28,6 +30,7 @@ void DetectPackageCtrl::process(Event e)
         case State::emptyState:
             if (Event::CheckForPackage == e)
             {
+                Serial.println("State4");
                 exitAction_emptyState();
                 entryAction_checking();
             }
@@ -40,11 +43,13 @@ void DetectPackageCtrl::process(Event e)
         case State::checking:
             if (Event::PackageAvailableToSort == e)
             {
+                Serial.println("State5");
                 exitAction_checking();
                 entryAction_fullState();
             }
             else if (Event::NoPackageAvailable == e)
             {
+                Serial.println("State6");
                 exitAction_checking();
                 entryAction_emptyState();
             }
@@ -57,6 +62,7 @@ void DetectPackageCtrl::process(Event e)
         case State::fullState:
             if (Event::PackageReadyToSort == e)
             {
+                Serial.println("State7");
                 exitAction_fullState();
                 entryAction_emptyState();
             }
@@ -67,6 +73,7 @@ void DetectPackageCtrl::process(Event e)
             }
             break;
         case State::errorState:
+            Serial.println("State8");
             exitAction_errorState();
             switch (lastStateBevorError)
             {
@@ -119,12 +126,12 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
  DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
  {
      DBINFO1ln("State: checking");
-     if (!pRfidReader.isPackageAvailable())
+     if (!pRfidReader->isPackageAvailable())
      {
         return Event::NoPackageAvailable;               
      }
      
-     newPackage = pRfidReader.getPackageInformation();
+     *newPackage = pRfidReader->getPackageInformation();
      return Event::PackageAvailableToSort;
  }
 

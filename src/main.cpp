@@ -1,9 +1,21 @@
 #include <Arduino.h>
+#include "DetectPackageCtrl.h"
+#define DEBUGGER
 
-void setup() {
-  // put your setup code here, to run once:
+
+DetectPackageCtrl *detectPackage;
+
+void setup() 
+{
+  
+  Serial.begin(9600);
+  Serial.println("Im here");
+  detectPackage  = new DetectPackageCtrl();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() 
+{
+  Serial.println("State1");
+  detectPackage->loop(DetectPackageCtrl::Event::CheckForPackage);
+  delay(1000);
 }
