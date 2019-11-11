@@ -13,21 +13,29 @@ class RfidReaderCtrl
 {
    public:
 
+   enum class Event
+    {
+        NoEvent = 0,
+        Error = 1
+    };
+    
     RfidReaderCtrl();
-    Package getPackageInformation();
+    Event getPackageInformation();
     bool isPackageAvailable();
+    
     
    private:
 
+    byte readBlockMatrix[16][18];
+    byte buffersize = 18;
+    MFRC522::StatusCode status;
     MFRC522 *pReader = new MFRC522(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);
     MFRC522::MIFARE_Key key;  //create a MIFARE_Key struct named 'key', which will hold the card information
-    byte readBlockMatrix[16][18];
     Package *package = new Package();
 
-    int readPackage();
-    int readBlock(int blockNumber, byte* arrayAddress);
+    Event readPackage();
+    Event readBlock(byte blockNumber, byte* arrayAddress);
     void parseInformationToStruct();
-
 };
 
 #endif

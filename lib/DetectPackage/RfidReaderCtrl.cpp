@@ -10,6 +10,7 @@ RfidReaderCtrl::RfidReaderCtrl()
     }
 }
 
+
 bool RfidReaderCtrl::isPackageAvailable()
 {
     if (pReader->PICC_IsNewCardPresent())
@@ -22,98 +23,86 @@ bool RfidReaderCtrl::isPackageAvailable()
     }
 }
 
-Package RfidReaderCtrl::getPackageInformation()
+
+RfidReaderCtrl::Event RfidReaderCtrl::getPackageInformation()
 {
-    DBFUNCCALL("RfidReaderCtrl::getPackageInformation");
-    DBINFO3("Return information about package in a struct");
-    return *package;
+    DBFUNCCALLln("RfidReaderCtrl::getPackageInformation");
+    DBINFO3ln("Return if Succesfull or not");
+
+    return readPackage(); 
 }
 
 
 void RfidReaderCtrl::parseInformationToStruct()
-{
-    DBFUNCCALL("RfidReaderCtrl::parseInformationToStruct");
-    DBINFO3("Parse the package information to a struct");
-    for (int i = 0; i < 18; i++)
+{   
+    DBFUNCCALLln("RfidReaderCtrl::parseInformationToStruct");
+    DBINFO3ln("Parse the package information to a struct");
+    Serial.println("Parsing!");
+    for (int j = 0; j < 4; j++)
     {
-        package->id += readBlockMatrix[2][i];
+        package->id += char(readBlockMatrix[2][j]); // 4 bytes for packageid
     }
-    
-    for (int i = 0; i < 18; i++)
+    for (int i = 3; i < 7; i++)
     {
-        package->cargo += readBlockMatrix[3][i];
+        for (int j = 0; j < 4; j++)
+        {
+            package->cargo += char(readBlockMatrix[i][j]); // 16 byte for packagecargo
+        }
     }
-
-    for (int i = 0; i < 18; i++)
+    for (int i = 7; i < 11; i++)
     {
-        package->targetDest += readBlockMatrix[4][i];
-    }
-
-    for (int i = 0; i < 18; i++)
-    {
-        package->targetReg += readBlockMatrix[5][i];
+        for (int j = 0; j < 4; j++)
+        {
+            package->targetDest += char(readBlockMatrix[i][j]); // 16 bytes for packagetargetDest
+        }
     }
 }
 
-int RfidReaderCtrl::readPackage() 
+RfidReaderCtrl::Event RfidReaderCtrl::readPackage() 
 {  
-    DBFUNCCALL("RfidReaderCtrl::readPackage()");
-    DBINFO3("Read the information on the rfid-transponder");
-    
-    if (pReader->PICC_IsNewCardPresent() && pReader->PICC_ReadCardSerial() && pReader->uid.size != 0) 
+    DBFUNCCALLln("RfidReaderCtrl::readPackage()");
+    DBINFO3ln("Read the information on the rfid-transponder ");
+    if (pReader->PICC_ReadCardSerial() && pReader->uid.size != 0) 
     {
-        DBINFO3("Scanner detected package");
+        DBINFO3ln("Scanner detected package ");
         // Read 16 blocks and store it in a matrix
-        for (int i = 0; i < 16; i++)
+        for (byte j = 0; j < 16; j++)
         {
-            this->readBlock(i, &readBlockMatrix[i][0]);
+            this->readBlock(j, &readBlockMatrix[j][0]);
+
+            // For testing
+            /*
+            for (int i = 0; i < 4; i++)
+            {
+                Serial.print(readBlockMatrix[j][i] < 0x10 ? " 0" : " ");
+                Serial.print(readBlockMatrix[j][i], HEX);
+                //Serial.print(char(readBlockMatrix[j][i]));
+            }
+            Serial.println();
+            */
         }
-        // For Testing
-        for (int i = 0; i < 16; i++)
-        {
-           for (int j = 0; j < 18; i++)
-           {
-               Serial.print(readBlockMatrix[i][j]);
-           }
-           Serial.println();
-        }
-        
-        return 0;
+        return RfidReaderCtrl::Event::NoEvent;
     }
     else
     {
-        return 1;
+        DBINFO3ln("Error: Could not read package ");
+        return RfidReaderCtrl::Event::Error;
     }
-    
-    
 }
 
-int RfidReaderCtrl::readBlock(int blockNumber, byte* arrayAddress) 
+RfidReaderCtrl::Event RfidReaderCtrl::readBlock(byte blockNumber, byte* arrayAddress) 
 {
-  DBFUNCCALL("RfidReaderCtrl::readBlock()");
-  DBINFO3("Read a block on the rfid-transponder");
-  int largestModulo4Number=blockNumber/4*4;
-  int trailerBlock=largestModulo4Number+3;
+  DBFUNCCALL("RfidReaderCtrl::readBlock(): ");
+  DBINFO3ln("Read a block on the rfid-transponder ");
 
-  byte status = pReader->PCD_Authenticate(MFRC522::PICC_CMD_MF_AUTH_KEY_A, trailerBlock, &key, &(pReader->uid));
-  
-  if (status != MFRC522::STATUS_OK) 
+  RfidReaderCtrl::status = (MFRC522::StatusCode) pReader->MIFARE_Read(blockNumber, arrayAddress, &buffersize);
+  if (RfidReaderCtrl::status != MFRC522::STATUS_OK) 
   {
-    DBINFO3("PCD_Authenticate() failed (read): ");
-    DBINFO3(pReader.GetStatusCodeName(status));
-    return 3;//return "3" as error message
+    DBINFO3ln("MIFARE_read() failed: ");
+    DBINFO3ln(pReader->GetStatusCodeName(status));
+    return RfidReaderCtrl::Event::Error;//return "4" as error message
   }
-          
-  byte buffersize = 18; // variable to store buffersize
-  status = pReader->MIFARE_Read(blockNumber, arrayAddress, &buffersize); //&buffersize is a pointer to the buffersize variable; MIFARE_Read requires a pointer instead of just a number
-  if (status != MFRC522::STATUS_OK) 
-  {
-    DBINFO3("MIFARE_read() failed: ");
-    DBINFO3(pReader.GetStatusCodeName(status));
-    return 4;//return "4" as error message
-  }
+  DBINFO3ln("Block was read");
 
-  DBINFO3("Bloack was read");
-
-  return 0; // Evtl ändern
+  return RfidReaderCtrl::Event::NoEvent; // Evtl ändern
 }
