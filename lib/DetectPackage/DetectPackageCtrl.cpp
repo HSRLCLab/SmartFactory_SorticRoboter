@@ -8,95 +8,97 @@ DetectPackageCtrl::DetectPackageCtrl() : currentState (State::emptyState), doAct
 void DetectPackageCtrl::loop()
 {
     DBFUNCCALLln("DetectPackageCtrl::loop()");
-    Serial.println("State2");
-    process((this->*doActionFPtr)());
+    do
+    {
+        process(currentEvent = (this->*doActionFPtr)());
+        delay(5000);
+    } while (currentEvent != Event::PackageReadyToSort);
 }
 
 void DetectPackageCtrl::loop(Event currentEvent)
 {
     DBFUNCCALLln("DetectPackageCtrl::loop(Event)");
-    Serial.println("State3");
     process(currentEvent);
-    process((this->*doActionFPtr)());
+    loop();   
 }
 
 
 void DetectPackageCtrl::process(Event e)
 {
-    DBFUNCCALL("DetectPackageCtrl::process ")
+    DBFUNCCALLln("DetectPackageCtrl::process ")
     DBEVENTln(String("DetectPackageCtrl ") + String(decodeEvent(e)));
+
     switch (currentState)
     {
+    case State::emptyState:
+        if (Event::CheckForPackage == e)
+        {
+            exitAction_emptyState();
+            entryAction_checking();
+        }
+        else if (Event::Error == e)
+        {
+            exitAction_emptyState();
+            entryAction_errorState();
+        }
+        break;
+    case State::checking:
+        if (Event::PackageAvailableToSort == e)
+        {
+            exitAction_checking();
+            entryAction_fullState();
+        }
+        else if (Event::NoPackageAvailable == e)
+        {
+            exitAction_checking();
+            entryAction_emptyState();
+        }
+        else if (Event::Error == e)
+        {
+            exitAction_checking();
+            entryAction_errorState();
+        }
+        break;
+    case State::fullState:
+        if (Event::PackageReadyToSort == e)
+        {
+            break;
+        }
+        else if (Event::PackageSorted == e)
+        {
+            exitAction_fullState();
+            entryAction_emptyState();
+        }
+        else if (Event::Error == e)
+        {
+            exitAction_fullState();
+            entryAction_errorState();
+        }
+        break;
+    case State::errorState:
+        exitAction_errorState();
+        switch (lastStateBevorError)
+        {
         case State::emptyState:
-            if (Event::CheckForPackage == e)
-            {
-                Serial.println("State4");
-                exitAction_emptyState();
-                entryAction_checking();
-            }
-            else if (Event::Error == e)
-            {
-                exitAction_emptyState();
-                entryAction_errorState();
-            }
+            entryAction_emptyState();
             break;
         case State::checking:
-            if (Event::PackageAvailableToSort == e)
-            {
-                Serial.println("State5");
-                exitAction_checking();
-                entryAction_fullState();
-            }
-            else if (Event::NoPackageAvailable == e)
-            {
-                Serial.println("State6");
-                exitAction_checking();
-                entryAction_emptyState();
-            }
-            else if (Event::Error == e)
-            {
-                exitAction_checking();
-                entryAction_errorState();
-            }
+            entryAction_checking();
             break;
         case State::fullState:
-            if (Event::PackageReadyToSort == e)
-            {
-                Serial.println("State7");
-                exitAction_fullState();
-                entryAction_emptyState();
-            }
-            else if (Event::Error == e)
-            {
-                exitAction_fullState();
-                entryAction_errorState();
-            }
+            entryAction_fullState();
             break;
-        case State::errorState:
-            Serial.println("State8");
-            exitAction_errorState();
-            switch (lastStateBevorError)
-            {
-                case State::emptyState:
-                    entryAction_emptyState();
-                    break;
-                case State::checking:
-                    entryAction_checking();
-                    break;
-                case State::fullState:
-                    entryAction_fullState();
-                    break;
-                default:
-                    break;
-            }
         default:
             break;
+        }
+    default:
+        break;
     }
 }
 
 void DetectPackageCtrl::entryAction_emptyState()
 {
-    DBSTATUSln("Entering State: emptyState")
+    DBSTATUSln("Entering State: emptyState");
     currentState = State::emptyState;  // set currentState
     doActionFPtr = &DetectPackageCtrl::doAction_emptyState;
     // TODO need a Low indicator?
@@ -112,12 +114,12 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
 
  void DetectPackageCtrl::exitAction_emptyState()
  {
-     DBSTATUSln("Leaving State: emptyState")
+     DBSTATUSln("Leaving State: emptyState");
  }
 
  void DetectPackageCtrl::entryAction_checking()
  {
-    DBSTATUSln("Entering State: checking")
+    DBSTATUSln("Entering State: checking");
     currentState = State::checking;  // set currentState
     doActionFPtr = &DetectPackageCtrl::doAction_checking;
 
@@ -130,9 +132,14 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
      {
         return Event::NoPackageAvailable;               
      }
-     
-     *newPackage = pRfidReader->getPackageInformation();
-     return Event::PackageAvailableToSort;
+     if (pRfidReader->getPackageInformation() == RfidReaderCtrl::Event::NoEvent)
+     {
+         return Event::PackageAvailableToSort;
+     }
+     else
+     {
+         return Event::Error;
+     }
  }
 
  void DetectPackageCtrl::exitAction_checking()
@@ -143,17 +150,16 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
 
  void DetectPackageCtrl::entryAction_fullState()
  {
-    DBSTATUSln("Entering State: checking")
+    DBSTATUSln("Entering State: fullState");
     currentState = State::fullState;  // set currentState
     doActionFPtr = &DetectPackageCtrl::doAction_fullState;
-
  }
 
  DetectPackageCtrl::Event DetectPackageCtrl::doAction_fullState()
  {
-     DBINFO1ln("State: fullState");
+    DBINFO1ln("State: fullState");
 
-     return Event::PackageReadyToSort;
+    return Event::PackageReadyToSort;
  }
 
  void DetectPackageCtrl::exitAction_fullState()

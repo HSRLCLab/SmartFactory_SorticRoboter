@@ -17,9 +17,11 @@ class DetectPackageCtrl
         PackageAvailableToSort = 1,
         NoPackageAvailable = 2,
         PackageReadyToSort = 3,
-        Error = 4,
-        Resume = 5,
-        NoEvent = 6
+        PackageSorted = 4,
+        InterruptForSort = 5,
+        Error = 5,
+        Resume = 6,
+        NoEvent = 7
     };
 
     void loop();
