@@ -2,6 +2,8 @@
 #define SORTPACKAGECTRL_H_
 
 #include <Arduino.h>
+#include "LogConfiguration.h"
+#include "NavigationCtrl.h"
 
 class SortPackageCtrl
 {
@@ -9,19 +11,42 @@ class SortPackageCtrl
 
     enum class Event
     {
-
+        PackageReadyToSort = 0,
+        PrepareForSort = 1,
+        SorticReadyForUpload = 2,
+        SorticReadyForTransport = 3,
+        SorticReadyForUnload = 4,
+        PackageUnloaded = 5,
+        PackageSortedInBox = 6,
+        Error = 7,
+        Resume = 8,
+        Reset = 9,
+        NoEvent = 10
     };
 
     SortPackageCtrl();
 
-    SortPackageCtrl::Event process(Event e);
+    void process(Event e);
 
     private:
 
     enum class State
     {
-
+        getTargetParking = 0,
+        uploadPackage = 1,
+        moveToParking = 2,
+        unloadPackage = 3,
+        navigateToPackageUA = 4,
+        errorState = 5,
+        resetState = 6
     };
+
+    State lastStateBeforeError;                
+    State currentState;
+    State lastState;                    
+    Event currentEvent;
+
+    NavigationCtrl pNavigation;
 
     Event (SortPackageCtrl::*doActionFPtr)(void) = nullptr;
 
@@ -49,11 +74,25 @@ class SortPackageCtrl
 
     void exitAction_moveToParking();
 
-    void entryAction_unloadParking();
+    void entryAction_unloadPackage();
 
-    SortPackageCtrl::Event doAction_unloadParking();
+    SortPackageCtrl::Event doAction_unloadPackage();
 
-    void exitAction_unloadParking();
+    void exitAction_unloadPackage();
+
+    void entryAction_errorState();
+
+    SortPackageCtrl::Event doAction_errorState();
+
+    void exitAction_errorState();
+
+    void entryAction_resetState();
+
+    void exitAciton_resetState();
+
+    String decodeState(State s);
+
+    String decodeEvent(Event e);
 
 };
 
