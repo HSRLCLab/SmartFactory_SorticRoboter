@@ -15,7 +15,7 @@
 #ifndef LOGCONFIGURATION_H
 #define LOGCONFIGURATION_H
 
-// #define DEBUGGER false  ///< Option to activate the Serial.print global
+#define DEBUGGER false  ///< Option to activate the Serial.print global
 
 #ifdef DEBUGGER
 #define DEBUG_ERROR     ///< Define DEBUG_ERROR global to print all  occuring errors via serial
