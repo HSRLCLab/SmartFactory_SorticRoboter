@@ -9,12 +9,14 @@ class NavigationCtrl
 
     enum class Event
     {
-
+        NoEvent = 0
     };
 
     NavigationCtrl();
 
-    void process(Event e);
+    void loop();
+
+    void loop(Event currentEvent);    
 
     private:
 
@@ -24,6 +26,8 @@ class NavigationCtrl
     };
 
     Event (NavigationCtrl::*doActionFPtr)(void) = nullptr;
+
+    void process(Event e);
 
     void entryAction_waitAtUA();
 
@@ -37,21 +41,21 @@ class NavigationCtrl
 
     void exitAction_getTargetBoxArea();
 
-    void entryAction_MoveToBoxArea1();
+    void entryAction_moveToBoxArea1();
 
     NavigationCtrl::Event doAction_moveToBoxArea1();
 
     void exitAction_moveToBoxArea1();
 
-    void entryAction_MoveToBoxArea2();
+    void entryAction_moveToBoxArea2();
 
     NavigationCtrl::Event doAction_moveToBoxArea2();
 
     void exitAction_moveToBoxArea2();
 
-    void entryAction_MoveToBoxArea3():
+    void entryAction_moveToBoxArea3();
 
-    NavigationCtrl::Event doAction_moveToBoxArea3();
+    Event doAction_moveToBoxArea3();
 
     void exitAction_moveToBoxArea3();
 

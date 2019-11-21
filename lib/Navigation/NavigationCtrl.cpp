@@ -1,147 +1,147 @@
 #include "NavigationCtrl.h"
 #include <Arduino.h>
 
-NavigationCtrl()
+NavigationCtrl::NavigationCtrl()
 {
 
 }
 
-void process(Event e)
+void NavigationCtrl::process(Event e)
 {
 
 }
 
-void entryAction_waitAtUA()
+void NavigationCtrl::entryAction_waitAtUA()
 {
 
 }
 
-NavigationCtrl::Event doAction_waitAtUA()
+NavigationCtrl::Event NavigationCtrl::doAction_waitAtUA()
+{
+    
+}
+
+void NavigationCtrl::exitAction_waitAtUA()
 {
 
 }
 
-void exitAction_waitAtUA();
+void NavigationCtrl::entryAction_getTargetBoxArea()
 {
 
 }
 
-void entryAction_getTargetBoxArea()
+NavigationCtrl::Event NavigationCtrl::doAction_getTargetBoxArea()
 {
 
 }
 
-NavigationCtrl::Event doAction_getTargetBoxArea()
+void NavigationCtrl::exitAction_getTargetBoxArea()
 {
 
 }
 
-void exitAction_getTargetBoxArea()
+void NavigationCtrl::entryAction_moveToBoxArea1()
 {
 
 }
 
-void entryAction_MoveToBoxArea1()
+NavigationCtrl::Event NavigationCtrl::doAction_moveToBoxArea1()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_moveToBoxArea1()
 {
 
 }
 
-NavigationCtrl::Event doAction_moveToBoxArea1()
+void NavigationCtrl::entryAction_moveToBoxArea2()
 {
 
 }
 
-void exitAction_moveToBoxArea1()
+NavigationCtrl::Event NavigationCtrl::doAction_moveToBoxArea2()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_moveToBoxArea2()
 {
 
 }
 
-void entryAction_MoveToBoxArea2()
+void NavigationCtrl::entryAction_moveToBoxArea3()
+{
+    
+}
+
+NavigationCtrl::Event NavigationCtrl::doAction_moveToBoxArea3()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_moveToBoxArea3()
 {
 
 }
 
-NavigationCtrl::Event doAction_moveToBoxArea2()
+void NavigationCtrl::entryAction_waitAtBA1()
 {
 
 }
 
-void exitAction_moveToBoxArea2()
+NavigationCtrl::Event NavigationCtrl::doAction_waitAtBA1()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_waitAtBA1()
 {
 
 }
 
-void entryAction_MoveToBoxArea3()
+void NavigationCtrl::entryAction_waitAtBA2()
 {
 
 }
 
-NavigationCtrl::Event doAction_moveToBoxArea3()
+NavigationCtrl::Event NavigationCtrl::doAction_waitAtBA2()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_waitAtBA2()
 {
 
 }
 
-void exitAction_moveToBoxArea3()
+void NavigationCtrl::entryAction_waitAtBA3()
 {
 
 }
 
-void entryAction_waitAtBA1()
+NavigationCtrl::Event NavigationCtrl::doAction_waitAtBA3()
+{
+    return NavigationCtrl::Event::NoEvent;
+}
+
+void NavigationCtrl::exitAction_waitAtBA3()
 {
 
 }
 
-NavigationCtrl::Event doAction_waitAtBA1()
+void NavigationCtrl::entryAction_detectPosition()
 {
 
 }
 
-void exitAction_waitAtBA1()
+NavigationCtrl::Event NavigationCtrl::doAction_detectPosition()
 {
-
+    return NavigationCtrl::Event::NoEvent;
 }
 
-void entryAction_waitAtBA2()
-{
-
-}
-
-NavigationCtrl::Event doAction_waitAtBA2()
-{
-
-}
-
-void exitAction_waitAtBA2()
-{
-
-}
-
-void entryAction_waitAtBA3()
-{
-
-}
-
-NavigationCtrl::Event doAction_waitAtBA3()
-{
-
-}
-
-void exitAction_waitAtBA3()
-{
-
-}
-
-void entryAction_detectPosition()
-{
-
-}
-
-NavigationCtrl::Event doAction_detectPosition()
-{
-
-}
-
-void exitAction_detectPosition()
+void NavigationCtrl::exitAction_detectPosition()
 {
 
 }
