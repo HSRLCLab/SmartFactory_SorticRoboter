@@ -1,3 +1,13 @@
+/**
+ * @file RfidReaderCtrl.cpp
+ * @author Philip Zellweger (philip.zellweger@hsr.ch)
+ * @brief Librarie to controll rfid sensor
+ * @version 0.1
+ * @date 2019-11-25
+ * 
+ * @copyright Copyright (c) 2019
+ * 
+ */
 #include "RfidReaderCtrl.h"
 
 RfidReaderCtrl::RfidReaderCtrl()

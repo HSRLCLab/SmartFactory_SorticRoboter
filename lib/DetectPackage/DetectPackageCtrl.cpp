@@ -1,3 +1,13 @@
+/**
+ * @file DetectPackageCtrl.cpp
+ * @author Philip Zellweger (philip.zellweger@hsr.ch)
+ * @brief 
+ * @version 0.1
+ * @date 2019-11-25
+ * 
+ * @copyright Copyright (c) 2019
+ * 
+ */
 #include "DetectPackageCtrl.h"
 
 DetectPackageCtrl::DetectPackageCtrl() : currentState (State::emptyState), doActionFPtr (&DetectPackageCtrl::doAction_emptyState)
