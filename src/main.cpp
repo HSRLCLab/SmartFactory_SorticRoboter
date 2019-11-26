@@ -1,21 +1,24 @@
 #include <Arduino.h>
-#include "DetectPackageCtrl.h"
-#define DEBUGGER
+//#include "DetectPackageCtrl.h"
+#include "SorticCtrl.h"
+#include "SortPackageCtrl.h"
 
-
-DetectPackageCtrl *detectPackage;
+SorticCtrl *sortic;
+//DetectPackageCtrl *detectPackage;
 
 void setup() 
 {
-  
+  /*
   Serial.begin(9600);
-  Serial.println("Im here");
   detectPackage  = new DetectPackageCtrl();
+  */
 }
 
 void loop() 
 {
-  Serial.println("State1");
+  /*
   detectPackage->loop(DetectPackageCtrl::Event::CheckForPackage);
-  delay(1000);
+  Serial.println("Sort the package!");
+  while(1);
+  */
 }
