@@ -1,3 +1,16 @@
+/**
+ * @file MainConfiguration.h
+ * @brief Configurations 
+ * 
+ * @author Philip Zellweger (philip.zellweger@hsr.ch)
+ * 
+ * @version 1.0 
+ *  
+ * @date 2019-04-03
+ * @copyright Copyright (c) 2019
+ * 
+ */
+
 #ifndef MAINCONFIGURATION_H
 #define MAINCONFIGURATION_H
 
