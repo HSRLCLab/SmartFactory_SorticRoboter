@@ -3,42 +3,51 @@
 
 #include <Arduino.h>
 #include "LogConfiguration.h"
-#include "NavigationCtrl.h"
+//#include "NavigationCtrl.h"
 
 class SortPackageCtrl
 {
     public:
 
-    enum class Event
+    enum class Line
     {
-        PackageReadyToSort = 0,
-        PrepareForSort = 1,
-        SorticReadyForUpload = 2,
-        SorticReadyForTransport = 3,
-        SorticReadyForUnload = 4,
-        PackageUnloaded = 5,
-        PackageSortedInBox = 6,
-        Error = 7,
-        Resume = 8,
-        Reset = 9,
-        NoEvent = 10
+        UploadLine,
+        Line1,
+        Line2,
+        Line3,
+        ErrorLine
     };
 
-    SortPackageCtrl();
+    enum class Event
+    {
+        UploadPackage,
+        UnloadPackage,
+        PackageUnloaded,        
+        Error,
+        Resume,
+        Reset,
+        NoEvent
+    };
 
-    void process(Event e);
+    SortPackageCtrl(int *actualLine, int *targetLine);
+
+    ~SortPackageCtrl();
+
+    void loop();
+
+    void loop(Event event);
 
     private:
 
+    void process(Event e);
+
     enum class State
     {
-        getTargetParking = 0,
-        uploadPackage = 1,
-        moveToParking = 2,
-        unloadPackage = 3,
-        navigateToPackageUA = 4,
-        errorState = 5,
-        resetState = 6
+        waitForSort,
+        uploadPackage,
+        unloadPackage,
+        errorState,
+        resetState
     };
 
     State lastStateBeforeError;                
@@ -46,33 +55,22 @@ class SortPackageCtrl
     State lastState;                    
     Event currentEvent;
 
-    NavigationCtrl pNavigation;
+    int *pActualLine = nullptr;
+    int *pTargetLine = nullptr;
 
     Event (SortPackageCtrl::*doActionFPtr)(void) = nullptr;
 
-    void entryAction_getTargetParking();
+    void entryAction_waitForSort();
 
-    SortPackageCtrl::Event doAction_getTargetParking();
+    SortPackageCtrl::Event doAction_waitForSort();
 
-    void exitAction_getTargetParking();
-
-    void entryAction_navigateToPackageUA();
-
-    SortPackageCtrl::Event doAction_navigateToPackageUA();
-
-    void exitAction_navigateToPackageUA();
+    void exitAction_waitForSort();
 
     void entryAction_uploadPackage();
 
     SortPackageCtrl::Event doAction_uploadPackage();
 
     void exitAction_uploadPackage();
-
-    void entryAction_moveToParking();
-
-    SortPackageCtrl::Event doAction_moveToParking();
-
-    void exitAction_moveToParking();
 
     void entryAction_unloadPackage();
 
@@ -88,7 +86,9 @@ class SortPackageCtrl
 
     void entryAction_resetState();
 
-    void exitAciton_resetState();
+    Event doAction_resetState();
+
+    void exitAction_resetState();
 
     String decodeState(State s);
 
