@@ -1,9 +1,9 @@
 /**
  * @file RfidReaderCtrl.h
  * @author Philip Zellweger (philip.zellweger@hsr.ch)
- * @brief Librarie to controll rfid sensor
- * @version 0.1
- * @date 2019-11-25
+ * @brief Library to controll rfid sensor
+ * @version 1.0
+ * @date 2019-12-16
  * 
  * @copyright Copyright (c) 2019
  * 
@@ -40,6 +40,10 @@ class RfidReaderCtrl
         Error
     };
 
+    /**
+     * @brief Package struct holds all information of the package
+     * 
+     */
     struct Package
     {
         int id = 0;
@@ -54,23 +58,24 @@ class RfidReaderCtrl
      */
     RfidReaderCtrl(RfidReaderCtrl::Package *packagePtr);
 
+    /**
+     * @brief Destroy the Rfid Reader Ctrl object
+     * 
+     */
     ~RfidReaderCtrl();
 
     /**
-     * @brief Get the Package Information object
+     * @brief get the package information on the rfid transponder
      * 
      * @return Event - generated Event
      */
     Event getPackageInformation();
 
     /**
-     * @brief Check if a package is available
+     * @brief Get the Read Block Matrix object
      * 
-     * @return true 
-     * @return false 
+     * @return byte* 
      */
-    bool isPackageAvailable();
-
     inline byte *getReadBlockMatrix()
     {
         byte *ptr = &readBlockMatrix[0][0];
@@ -81,22 +86,15 @@ class RfidReaderCtrl
     //======================PRIVATE==========================================================
     private:
 
-    byte readBlockMatrix[16][18]; 
-    byte buffersize = 18;
+    byte readBlockMatrix[16][18];                                               ///< matrix to store all bytes from the rfid transponder
+    byte buffersize = 18;                                                       ///< size of all pages + 2
 
-    MFRC522::StatusCode status;     ///< instance of status code
+    MFRC522::StatusCode status;                                                 ///< instance of status code
     MFRC522 *pReader = new MFRC522(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);     ///< instance of mfrc sensor librarie
-    MFRC522::MIFARE_Key key;        ///< create a MIFARE_Key struct named 'key', which will hold the card information
+    MFRC522::MIFARE_Key key;                                                    ///< create a MIFARE_Key struct named 'key', 
+                                                                                ///< which will hold the card information
 
-    Package *pPackagePtr;
-    
-
-    /**
-     * @brief read package information from rfid transponder
-     * 
-     * @return Event - generated Event
-     */
-    Event readPackage();
+    Package *pPackagePtr = nullptr;                                             ///< pointer to the storage place of the package struct
 
     /**
      * @brief read block on rfid transponder
@@ -108,7 +106,7 @@ class RfidReaderCtrl
     Event readBlock(byte blockNumber, byte* arrayAddress);
 
     /**
-     * @brief parse package information to package message
+     * @brief parse package information to package struct
      * 
      */
     void parseInformationToStruct();

@@ -1,8 +1,8 @@
 /**
  * @file RfidReaderCtrl.cpp
  * @author Philip Zellweger (philip.zellweger@hsr.ch)
- * @brief Librarie to controll rfid sensor
- * @version 0.1
+ * @brief Library to controll rfid sensor MFRC522
+ * @version 1.1
  * @date 2019-11-25
  * 
  * @copyright Copyright (c) 2019
@@ -10,47 +10,40 @@
  */
 #include "RfidReaderCtrl.h"
 
+//======================Public===========================================================
+
 RfidReaderCtrl::RfidReaderCtrl(RfidReaderCtrl::Package *packagePtr) : 
-                                                    pPackagePtr(packagePtr)
+                                                                        pPackagePtr(packagePtr)
 {
     DBFUNCCALLln("RfidReaderCtrl::RfidReaderCtrl(RfidReaderCtrl::Package)");
+    // begin spi
     SPI.begin();
+
+    // initialize the rfid sensor
     pReader->PCD_Init();
     for (byte i = 0; i < 6; i++) 
     {
-        key.keyByte[i] = 0xFF;//keyByte is defined in the "MIFARE_Key" 'struct' definition in the .h file of the library
+        key.keyByte[i] = 0xFF; //keyByte is defined in the "MIFARE_Key" 'struct' definition in the .h file of the library
     }
 }
 
 RfidReaderCtrl::~RfidReaderCtrl()
 {
-
-}
-
-bool RfidReaderCtrl::isPackageAvailable()
-{
-    DBFUNCCALLln("RfidReaderCtrl::isPackageAvailable()");
-    if (pReader->PICC_IsNewCardPresent())
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    DBFUNCCALLln("RfidReaderCtrl::~RfidReaderCtrl()");
 }
 
 RfidReaderCtrl::Event RfidReaderCtrl::getPackageInformation()
 {
     DBFUNCCALLln("RfidReaderCtrl::getPackageInformation");
     
+    // call rfid sensor and check if a transponder is present
     if (!pReader->PICC_IsNewCardPresent())
     {
         DBINFO3ln("No package present");
         return RfidReaderCtrl::Event::NoPackageAvailable;
     }
 
-    // TEST
+    // TEST 
     return RfidReaderCtrl::Event::NoEvent;
     // TEST
 
@@ -76,7 +69,7 @@ RfidReaderCtrl::Event RfidReaderCtrl::getPackageInformation()
             }
             Serial.println();
             */
-           // TEST
+            // TEST
             
         }
         return RfidReaderCtrl::Event::NoEvent;
@@ -88,12 +81,15 @@ RfidReaderCtrl::Event RfidReaderCtrl::getPackageInformation()
     }
 }
 
+//======================PRIVATE==========================================================
+
+//======================Aux-Functions====================================================
+//=======================================================================================
 
 void RfidReaderCtrl::parseInformationToStruct()
 {   
     DBFUNCCALLln("RfidReaderCtrl::parseInformationToStruct");
     DBINFO3ln("Parse the package information to a struct");
-    Serial.println("Parsing!");
 
     for (int j = 0; j < 2; j++)
     {
@@ -110,22 +106,22 @@ void RfidReaderCtrl::parseInformationToStruct()
     */
     for (int j = 2; j < 4; j++)
     {
-        pPackagePtr->targetDest += char(readBlockMatrix[2][j]); // 2 bytes for packagetargetDest --> Postleitzahl
+        pPackagePtr->targetDest += uint8_t(readBlockMatrix[2][j]); // 2 bytes for packagetargetDest --> Postleitzahl
     }
     
 }
 
 RfidReaderCtrl::Event RfidReaderCtrl::readBlock(byte blockNumber, byte* arrayAddress) 
 {
-  DBFUNCCALL("RfidReaderCtrl::readBlock(): ");
+  DBFUNCCALL("RfidReaderCtrl::readBlock(byte, byte*):");
+  
   DBINFO3ln("Read a block on the rfid-transponder ");
-
   RfidReaderCtrl::status = (MFRC522::StatusCode) pReader->MIFARE_Read(blockNumber, arrayAddress, &buffersize);
   if (RfidReaderCtrl::status != MFRC522::STATUS_OK) 
   {
     DBINFO3ln("MIFARE_read() failed: ");
     DBINFO3ln(pReader->GetStatusCodeName(status));
-    return RfidReaderCtrl::Event::Error;//return "4" as error message
+    return RfidReaderCtrl::Event::Error;
   }
 
   DBINFO3ln("Block was read");

@@ -1,22 +1,25 @@
 /**
  * @file DetectPackageCtrl.cpp
  * @author Philip Zellweger (philip.zellweger@hsr.ch)
- * @brief 
- * @version 0.1
- * @date 2019-11-25
+ * @brief The detect package controll class controlls the FSM to detect packages
+ *        It is a sub finite state machine of the sortic controll
+ * @version 1.0
+ * @date 2019-12-16
  * 
  * @copyright Copyright (c) 2019
  * 
  */
 #include "DetectPackageCtrl.h"
 
+//======================Public===========================================================
+
 DetectPackageCtrl::DetectPackageCtrl(RfidReaderCtrl::Package *packagePtr) : 
-                                currentState(State::emptyState),
-                                pPackagePTr(packagePtr),
-                                doActionFPtr(&DetectPackageCtrl::doAction_emptyState)
+                                                                            currentState(State::emptyState),
+                                                                            pPackagePTr(packagePtr),
+                                                                            doActionFPtr(&DetectPackageCtrl::doAction_emptyState)
                                 
 {
-    
+    DBFUNCCALLln("DetectPackageCtrl::DetectPackageCtrl(RfidReaderCtrl::Package *packagePtr)");
 }
 
 void DetectPackageCtrl::loop()
@@ -24,6 +27,7 @@ void DetectPackageCtrl::loop()
     DBFUNCCALLln("DetectPackageCtrl::loop()");
     do
     {
+        // process last generated event
         process((currentEvent = (this->*doActionFPtr)()));
         delay(5000);
     } while (currentEvent != Event::PackageReadyToSort);
@@ -33,15 +37,22 @@ void DetectPackageCtrl::loop(DetectPackageCtrl::Event event)
 {
     DBFUNCCALLln("DetectPackageCtrl::loop(Event)");
     currentEvent = event;
+
+    // process current event
     process(currentEvent);
+
+    // process generated event
     loop();   
 }
 
+//======================PRIVATE==========================================================
 
 void DetectPackageCtrl::process(Event e)
 {
-    DBFUNCCALLln("DetectPackageCtrl::process ")
+    DBFUNCCALLln("DetectPackageCtrl::process(Event)")
 
+    // controll the finite state machine
+    // switch with current state and generated event to next state
     switch (currentState)
     {
     case State::emptyState:
@@ -110,37 +121,45 @@ void DetectPackageCtrl::process(Event e)
     }
 }
 
+//======================State-Functions==================================================
+
+//======================emptyState=======================================================
+//=======================================================================================
 void DetectPackageCtrl::entryAction_emptyState()
 {
     DBSTATUSln("Entering State: emptyState");
-    currentState = State::emptyState;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_emptyState;
+    currentState = State::emptyState;                           // set currentState
+    doActionFPtr = &DetectPackageCtrl::doAction_emptyState;     // set doAction-function
 }
 
 DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
 {
     DBINFO1ln("State: emptyState");
-    delay(1000);
+    // do nothing
+    delay(50);
     
     return Event::CheckForPackage;
 }
 
- void DetectPackageCtrl::exitAction_emptyState()
- {
-     DBSTATUSln("Leaving State: emptyState");
- }
+void DetectPackageCtrl::exitAction_emptyState()
+{
+    DBSTATUSln("Leaving State: emptyState");
+}
 
- void DetectPackageCtrl::entryAction_checking()
- {
+
+//======================checking=========================================================
+//=======================================================================================
+void DetectPackageCtrl::entryAction_checking()
+{
     DBSTATUSln("Entering State: checking");
-    currentState = State::checking;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_checking;
+    currentState = State::checking;                         // set currentState
+    doActionFPtr = &DetectPackageCtrl::doAction_checking;   // set doAction-function
 
- }
+}
 
- DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
- {
-     DBINFO1ln("State: checking");
+DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
+{
+    DBINFO1ln("State: checking");
     // TEST
     //return Event::PackageAvailableToSort;
     // TEST
@@ -159,45 +178,52 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
         return DetectPackageCtrl::Event::NoPackageAvailable;
     }
     
- }
+}
 
- void DetectPackageCtrl::exitAction_checking()
- {
-     DBSTATUSln("Leaving State: checking");
+void DetectPackageCtrl::exitAction_checking()
+{
+    DBSTATUSln("Leaving State: checking");
 
- }
+}
 
- void DetectPackageCtrl::entryAction_fullState()
- {
+
+//======================fullState========================================================
+//=======================================================================================
+void DetectPackageCtrl::entryAction_fullState()
+{
     DBSTATUSln("Entering State: fullState");
-    currentState = State::fullState;  // set currentState
-    doActionFPtr = &DetectPackageCtrl::doAction_fullState;
- }
+    currentState = State::fullState;                        // set currentState
+    doActionFPtr = &DetectPackageCtrl::doAction_fullState;  // set doAction-function
+}
 
- DetectPackageCtrl::Event DetectPackageCtrl::doAction_fullState()
- {
+DetectPackageCtrl::Event DetectPackageCtrl::doAction_fullState()
+{
     DBINFO1ln("State: fullState");
 
     // TEST
+    /*
     pPackagePTr->id = 2;
     pPackagePTr->cargo = "Computer###";
     pPackagePTr->targetDest = (uint8_t)8854;
+    */
     // TEST
     
     return Event::PackageReadyToSort;
- }
+}
 
  void DetectPackageCtrl::exitAction_fullState()
  {
      DBSTATUSln("Leaving State: fullState");
  }
 
- void DetectPackageCtrl::entryAction_errorState() 
- {
+//======================errorState=======================================================
+//=======================================================================================
+void DetectPackageCtrl::entryAction_errorState() 
+{
     DBERROR("Entering State: errorState");
-    lastStateBevorError = currentState;
-    currentState = State::errorState;  // set errorState
-    doActionFPtr = &DetectPackageCtrl::doAction_errorState;
+    lastStateBevorError = currentState;                         // set lastStateBevorError
+    currentState = State::errorState;                           // set currentState
+    doActionFPtr = &DetectPackageCtrl::doAction_errorState;     // set doAction-function
 }
 
 DetectPackageCtrl::Event DetectPackageCtrl::doAction_errorState() 
@@ -215,30 +241,30 @@ void DetectPackageCtrl::exitAction_errorState()
     DBSTATUSln("Leaving State: errorState");
 }
 
+//======================Aux-Functions====================================================
+//=======================================================================================
+
 String DetectPackageCtrl::decodeState(State state) 
 {
+    DBFUNCCALLln("DetectPackageCtrl::decodeState(State)");
     switch (state) 
     {
         case State::emptyState:
             return "State::emptyState";
-            break;
         case State::fullState:
             return "State::fullState";
-            break;
         case State::checking:
             return "State::checking";
-            break;
         case State::errorState:
             return "State::errorState";
-            break;
         default:
             return "ERROR: No matching state";
-            break;
     }
 }
 
 String DetectPackageCtrl::decodeEvent(Event event) 
 {
+    DBFUNCCALLln("DetectPackageCtrl::decodeEvent(Event)")
     switch (event) 
     {
         case DetectPackageCtrl::Event::CheckForPackage:
@@ -256,6 +282,6 @@ String DetectPackageCtrl::decodeEvent(Event event)
         case DetectPackageCtrl::Event::NoEvent:
             return "Event::NoEvent";
         default:
-            return (String)"ERROR: No matching event";
+            return "ERROR: No matching event";
     }
 }

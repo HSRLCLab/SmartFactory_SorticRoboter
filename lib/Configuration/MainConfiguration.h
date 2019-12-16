@@ -15,12 +15,12 @@
 #define MAINCONFIGURATION_H
 
 
-#define RFIDDETECTOR_SDA         53
-#define RFIDDETECTOR_RST_PIN     49
+#define RFIDDETECTOR_SDA         53                     ///< SDA Pin of Arduino Mega for Rrfi detector
+#define RFIDDETECTOR_RST_PIN     49                     ///< RST Pin of Arduino Mega for rfi detector
 
-#define I2CSLAVEADDRESP 7
+#define I2CSLAVEADDRUNO 7                               ///< I2C Adress of Arduino Mega
+#define I2CMASTERADDRESP 33                             ///< I2C Adress of ESP32
 
-const unsigned int TIME_BETWEEN_PUBLISH = 300;
-const unsigned int SORTIC_WAITFOR_BOX_SECONDS = 5;   
+const unsigned int TIME_BETWEEN_PUBLISH = 300;          ///< Time which will minimum reached between publish messages
 
 #endif

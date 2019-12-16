@@ -2,8 +2,9 @@
  * @file DetectPackageCtrl.h
  * @author Philip Zellweger (philip.zellweger@hsr.ch)
  * @brief The detect package controll class controlls the FSM to detect packages
- * @version 0.1
- * @date 2019-11-25
+ *        It is a sub finite state machine of the sortic controll
+ * @version 1.0
+ * @date 2019-12-16
  * 
  * @copyright Copyright (c) 2019
  * 
@@ -78,16 +79,17 @@ class DetectPackageCtrl
         errorState
     };
 
-    State lastStateBevorError;  ///< holds the last State bevor error to resume after error
-    State currentState;         ///< holds the current state of the FSM
-    DetectPackageCtrl::Event currentEvent;         ///< holds the current event of the FSM
+    State lastStateBevorError;                                          ///< holds the last State bevor error to resume after error
+    State currentState;                                                 ///< holds the current state of the FSM
+    DetectPackageCtrl::Event currentEvent;                              ///< holds the current event of the FSM
 
-    RfidReaderCtrl::Package *pPackagePTr = nullptr;
+    RfidReaderCtrl::Package *pPackagePTr = nullptr;                     ///< pointer to the package struct of the sortic controll 
+                                                                        ///< will be initialized in the constructor
 
     RfidReaderCtrl *pRfidReader = new RfidReaderCtrl(pPackagePTr);     ///< instance of rfid reader controll
 
     /**
-     * @brief Functionpointer to call the current states do-function
+     * @brief functionpointer to call the current states do-function
      * 
      */
     Event (DetectPackageCtrl::*doActionFPtr)(void) = nullptr;
@@ -129,8 +131,10 @@ class DetectPackageCtrl
     /**
      * @brief main action of the state checking
      * 
-     * - check for available package
-     * - read package information
+     * - call rfid reader controll
+     * --> check for available package
+     * --> read package information
+     * --> store package information to package struct in sortic controll
      * 
      * @return Event - generated Event
      */
@@ -151,6 +155,8 @@ class DetectPackageCtrl
     /**
      * @brief main action of the state full state
      * 
+     * - do nothing and return package ready to sort
+     * 
      * @return Event - generated Event
      */
     Event doAction_fullState();
@@ -170,6 +176,8 @@ class DetectPackageCtrl
     /**
      * @brief main action of the state error state
      * 
+     * @todo implement error state
+     * 
      * @return Event - generated Event
      */
     Event doAction_errorState();
@@ -181,7 +189,7 @@ class DetectPackageCtrl
     void exitAction_errorState();
 
     /**
-     * @brief decode the event
+     * @brief decodes the event of detect package controll finite state machine
      * 
      * @param event - Event
      * @return String 
@@ -189,7 +197,7 @@ class DetectPackageCtrl
     String decodeEvent(Event event);
 
     /**
-     * @brief decode the state
+     * @brief decodes the state of detect package controll finite state machine
      * 
      * @param state - State
      * @return String 
@@ -197,4 +205,4 @@ class DetectPackageCtrl
     String decodeState(State state);
 };
 
-#endif
+#endif // DETECTPACKAGECTRL_H_
