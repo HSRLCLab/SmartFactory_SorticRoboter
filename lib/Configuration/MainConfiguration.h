@@ -14,8 +14,11 @@
 #ifndef MAINCONFIGURATION_H
 #define MAINCONFIGURATION_H
 
-#define RFIDDETECTOR_SDA         10
-#define RFIDDETECTOR_RST_PIN     9
+
+#define RFIDDETECTOR_SDA         53
+#define RFIDDETECTOR_RST_PIN     49
+
+#define I2CSLAVEADDRESP 7
 
 const unsigned int TIME_BETWEEN_PUBLISH = 300;
 const unsigned int SORTIC_WAITFOR_BOX_SECONDS = 5;   
