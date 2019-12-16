@@ -53,16 +53,15 @@ class DetectPackageCtrl
      * 
      * @param currentEvent - Event
      */
-    void loop(Event currentEvent);
+    void loop(DetectPackageCtrl::Event event);
 
     
-    PackageMessage *newPackage = new PackageMessage();  ///< instance of package message
 
     /**
      * @brief Construct a new Detect Package Ctrl object
      * 
      */
-    DetectPackageCtrl();
+    DetectPackageCtrl(RfidReaderCtrl::Package *packagePtr);
 
     //======================PRIVATE==========================================================
     private:
@@ -73,23 +72,25 @@ class DetectPackageCtrl
      */
     enum class State
     {
-        emptyState = 0,
-        checking = 1,
-        fullState = 2,
-        errorState = 3
+        emptyState,
+        checking,
+        fullState,
+        errorState
     };
 
     State lastStateBevorError;  ///< holds the last State bevor error to resume after error
     State currentState;         ///< holds the current state of the FSM
-    Event currentEvent;         ///< holds the current event of the FSM
+    DetectPackageCtrl::Event currentEvent;         ///< holds the current event of the FSM
 
-    RfidReaderCtrl *pRfidReader = new RfidReaderCtrl();     ///< instance of rfid reader controll
+    RfidReaderCtrl::Package *pPackagePTr = nullptr;
+
+    RfidReaderCtrl *pRfidReader = new RfidReaderCtrl(pPackagePTr);     ///< instance of rfid reader controll
 
     /**
      * @brief Functionpointer to call the current states do-function
      * 
      */
-    DetectPackageCtrl::Event (DetectPackageCtrl::*doActionFPtr)(void) = 0;
+    Event (DetectPackageCtrl::*doActionFPtr)(void) = nullptr;
 
     /**
      * @brief changes the state of the FSM based on the event

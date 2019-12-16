@@ -18,7 +18,6 @@
 // own files:
 #include "LogConfiguration.h"
 #include "MainConfiguration.h"
-#include "Package.h"
 
 
 /**
@@ -36,15 +35,26 @@ class RfidReaderCtrl
      */
     enum class Event
     {
-        NoEvent = 0,
-        Error = 1
+        NoEvent,
+        NoPackageAvailable,
+        Error
     };
+
+    struct Package
+    {
+        int id = 0;
+        String cargo = "";
+        uint8_t targetDest = 0;
+    };
+
     
     /**
      * @brief Construct a new Rfid Reader Ctrl object
      * 
      */
-    RfidReaderCtrl();
+    RfidReaderCtrl(RfidReaderCtrl::Package *packagePtr);
+
+    ~RfidReaderCtrl();
 
     /**
      * @brief Get the Package Information object
@@ -60,6 +70,13 @@ class RfidReaderCtrl
      * @return false 
      */
     bool isPackageAvailable();
+
+    inline byte *getReadBlockMatrix()
+    {
+        byte *ptr = &readBlockMatrix[0][0];
+        return ptr;
+    }
+
     
     //======================PRIVATE==========================================================
     private:
@@ -70,7 +87,9 @@ class RfidReaderCtrl
     MFRC522::StatusCode status;     ///< instance of status code
     MFRC522 *pReader = new MFRC522(RFIDDETECTOR_SDA, RFIDDETECTOR_RST_PIN);     ///< instance of mfrc sensor librarie
     MFRC522::MIFARE_Key key;        ///< create a MIFARE_Key struct named 'key', which will hold the card information
-    PackageMessage *package = new PackageMessage;   ///< instance of package message
+
+    Package *pPackagePtr;
+    
 
     /**
      * @brief read package information from rfid transponder

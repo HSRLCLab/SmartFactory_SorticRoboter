@@ -10,7 +10,11 @@
  */
 #include "DetectPackageCtrl.h"
 
-DetectPackageCtrl::DetectPackageCtrl() : currentState (State::emptyState), doActionFPtr (&DetectPackageCtrl::doAction_emptyState)
+DetectPackageCtrl::DetectPackageCtrl(RfidReaderCtrl::Package *packagePtr) : 
+                                currentState(State::emptyState),
+                                pPackagePTr(packagePtr),
+                                doActionFPtr(&DetectPackageCtrl::doAction_emptyState)
+                                
 {
     
 }
@@ -20,14 +24,15 @@ void DetectPackageCtrl::loop()
     DBFUNCCALLln("DetectPackageCtrl::loop()");
     do
     {
-        process(currentEvent = (this->*doActionFPtr)());
+        process((currentEvent = (this->*doActionFPtr)()));
         delay(5000);
     } while (currentEvent != Event::PackageReadyToSort);
 }
 
-void DetectPackageCtrl::loop(Event currentEvent)
+void DetectPackageCtrl::loop(DetectPackageCtrl::Event event)
 {
     DBFUNCCALLln("DetectPackageCtrl::loop(Event)");
+    currentEvent = event;
     process(currentEvent);
     loop();   
 }
@@ -36,7 +41,6 @@ void DetectPackageCtrl::loop(Event currentEvent)
 void DetectPackageCtrl::process(Event e)
 {
     DBFUNCCALLln("DetectPackageCtrl::process ")
-    DBEVENTln(String("DetectPackageCtrl ") + String(decodeEvent(e)));
 
     switch (currentState)
     {
@@ -111,7 +115,6 @@ void DetectPackageCtrl::entryAction_emptyState()
     DBSTATUSln("Entering State: emptyState");
     currentState = State::emptyState;  // set currentState
     doActionFPtr = &DetectPackageCtrl::doAction_emptyState;
-    // TODO need a Low indicator?
 }
 
 DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
@@ -138,18 +141,24 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
  DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
  {
      DBINFO1ln("State: checking");
-     if (!pRfidReader->isPackageAvailable())
-     {
-        return Event::NoPackageAvailable;               
-     }
-     if (pRfidReader->getPackageInformation() == RfidReaderCtrl::Event::NoEvent)
-     {
-         return Event::PackageAvailableToSort;
-     }
-     else
-     {
-         return Event::Error;
-     }
+    // TEST
+    //return Event::PackageAvailableToSort;
+    // TEST
+
+    // Can't read the information on the rfid chip, it worked at date XXXX and now not anymore
+    // Maybe Hardware defect
+    // The card presents can be detected!
+    RfidReaderCtrl::Event tempEvent = pRfidReader->getPackageInformation();
+    switch (tempEvent)
+    {
+    case RfidReaderCtrl::Event::NoEvent:
+        return DetectPackageCtrl::Event::PackageAvailableToSort;
+    case RfidReaderCtrl::Event::Error:
+        return DetectPackageCtrl::Event::Error;
+    default:
+        return DetectPackageCtrl::Event::NoPackageAvailable;
+    }
+    
  }
 
  void DetectPackageCtrl::exitAction_checking()
@@ -169,6 +178,12 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
  {
     DBINFO1ln("State: fullState");
 
+    // TEST
+    pPackagePTr->id = 2;
+    pPackagePTr->cargo = "Computer###";
+    pPackagePTr->targetDest = (uint8_t)8854;
+    // TEST
+    
     return Event::PackageReadyToSort;
  }
 
@@ -188,7 +203,9 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_emptyState()
 DetectPackageCtrl::Event DetectPackageCtrl::doAction_errorState() 
 {
     DBINFO1ln("State: errorState");
-    //Generate the Event
+    
+    // Implement error state
+        // TODO
 
     return Event::NoEvent;
 }
@@ -224,29 +241,21 @@ String DetectPackageCtrl::decodeEvent(Event event)
 {
     switch (event) 
     {
-        case Event::CheckForPackage:
+        case DetectPackageCtrl::Event::CheckForPackage:
             return "Event::CheckForPackage";
-            break;
-        case Event::NoPackageAvailable:
+        case DetectPackageCtrl::Event::NoPackageAvailable:
             return "Event::NoPackageAvailable";
-            break;
-        case Event::PackageAvailableToSort:
+        case DetectPackageCtrl::Event::PackageAvailableToSort:
             return "Event::PackageAvailableToSort";
-            break;
-        case Event::PackageReadyToSort:
+        case DetectPackageCtrl::Event::PackageReadyToSort:
             return "Event::PackageReadyToSort";
-            break;
-        case Event::Error:
+        case DetectPackageCtrl::Event::Error:
             return "Event::Error";
-            break;
-        case Event::Resume:
+        case DetectPackageCtrl::Event::Resume:
             return "Event::Resume";
-            break;
-        case Event::NoEvent:
+        case DetectPackageCtrl::Event::NoEvent:
             return "Event::NoEvent";
-            break;
         default:
-            return "ERROR: No matching event";
-            break;
+            return (String)"ERROR: No matching event";
     }
 }

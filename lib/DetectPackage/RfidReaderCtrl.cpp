@@ -10,8 +10,10 @@
  */
 #include "RfidReaderCtrl.h"
 
-RfidReaderCtrl::RfidReaderCtrl()
+RfidReaderCtrl::RfidReaderCtrl(RfidReaderCtrl::Package *packagePtr) : 
+                                                    pPackagePtr(packagePtr)
 {
+    DBFUNCCALLln("RfidReaderCtrl::RfidReaderCtrl(RfidReaderCtrl::Package)");
     SPI.begin();
     pReader->PCD_Init();
     for (byte i = 0; i < 6; i++) 
@@ -20,9 +22,14 @@ RfidReaderCtrl::RfidReaderCtrl()
     }
 }
 
+RfidReaderCtrl::~RfidReaderCtrl()
+{
+
+}
 
 bool RfidReaderCtrl::isPackageAvailable()
 {
+    DBFUNCCALLln("RfidReaderCtrl::isPackageAvailable()");
     if (pReader->PICC_IsNewCardPresent())
     {
         return true;
@@ -33,54 +40,33 @@ bool RfidReaderCtrl::isPackageAvailable()
     }
 }
 
-
 RfidReaderCtrl::Event RfidReaderCtrl::getPackageInformation()
 {
     DBFUNCCALLln("RfidReaderCtrl::getPackageInformation");
-    DBINFO3ln("Return if Succesfull or not");
-
-    return readPackage(); 
-}
-
-
-void RfidReaderCtrl::parseInformationToStruct()
-{   
-    DBFUNCCALLln("RfidReaderCtrl::parseInformationToStruct");
-    DBINFO3ln("Parse the package information to a struct");
-    Serial.println("Parsing!");
-    for (int j = 0; j < 4; j++)
+    
+    if (!pReader->PICC_IsNewCardPresent())
     {
-        package->id += char(readBlockMatrix[2][j]); // 4 bytes for packageid
+        DBINFO3ln("No package present");
+        return RfidReaderCtrl::Event::NoPackageAvailable;
     }
-    for (int i = 3; i < 7; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            package->cargo += char(readBlockMatrix[i][j]); // 16 byte for packagecargo
-        }
-    }
-    for (int i = 7; i < 11; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            package->targetDest += char(readBlockMatrix[i][j]); // 16 bytes for packagetargetDest
-        }
-    }
-}
 
-RfidReaderCtrl::Event RfidReaderCtrl::readPackage() 
-{  
-    DBFUNCCALLln("RfidReaderCtrl::readPackage()");
-    DBINFO3ln("Read the information on the rfid-transponder ");
-    if (pReader->PICC_ReadCardSerial() && pReader->uid.size != 0) 
+    // TEST
+    return RfidReaderCtrl::Event::NoEvent;
+    // TEST
+
+    // Cant read rfid transponder -> maybe hardware defect
+    if (pReader->PICC_ReadCardSerial() && (pReader->uid.size != 0)) 
     {
         DBINFO3ln("Scanner detected package ");
         // Read 16 blocks and store it in a matrix
         for (byte j = 0; j < 16; j++)
         {
-            this->readBlock(j, &readBlockMatrix[j][0]);
+            if(this->readBlock(j, &readBlockMatrix[j][0]) != RfidReaderCtrl::Event::NoEvent);
+            {
+                return RfidReaderCtrl::Event::Error;
+            }
 
-            // For testing
+            // TEST
             /*
             for (int i = 0; i < 4; i++)
             {
@@ -90,6 +76,8 @@ RfidReaderCtrl::Event RfidReaderCtrl::readPackage()
             }
             Serial.println();
             */
+           // TEST
+            
         }
         return RfidReaderCtrl::Event::NoEvent;
     }
@@ -98,6 +86,33 @@ RfidReaderCtrl::Event RfidReaderCtrl::readPackage()
         DBINFO3ln("Error: Could not read package ");
         return RfidReaderCtrl::Event::Error;
     }
+}
+
+
+void RfidReaderCtrl::parseInformationToStruct()
+{   
+    DBFUNCCALLln("RfidReaderCtrl::parseInformationToStruct");
+    DBINFO3ln("Parse the package information to a struct");
+    Serial.println("Parsing!");
+
+    for (int j = 0; j < 2; j++)
+    {
+        pPackagePtr->id += char(readBlockMatrix[2][j]); // 2 bytes for packageid
+    }
+    /* removed cargo cause i2c message size
+    for (int i = 3; i < 6; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            pPackagePtr->cargo += char(readBlockMatrix[i][j]); // 12 byte for packagecargo
+        }
+    }
+    */
+    for (int j = 2; j < 4; j++)
+    {
+        pPackagePtr->targetDest += char(readBlockMatrix[2][j]); // 2 bytes for packagetargetDest --> Postleitzahl
+    }
+    
 }
 
 RfidReaderCtrl::Event RfidReaderCtrl::readBlock(byte blockNumber, byte* arrayAddress) 
@@ -112,7 +127,7 @@ RfidReaderCtrl::Event RfidReaderCtrl::readBlock(byte blockNumber, byte* arrayAdd
     DBINFO3ln(pReader->GetStatusCodeName(status));
     return RfidReaderCtrl::Event::Error;//return "4" as error message
   }
-  DBINFO3ln("Block was read");
 
-  return RfidReaderCtrl::Event::NoEvent; // Evtl ändern
+  DBINFO3ln("Block was read");
+  return RfidReaderCtrl::Event::NoEvent;
 }
