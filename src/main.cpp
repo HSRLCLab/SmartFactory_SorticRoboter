@@ -1,24 +1,19 @@
 #include <Arduino.h>
-//#include "DetectPackageCtrl.h"
 #include "SorticCtrl.h"
-#include "SortPackageCtrl.h"
 
-SorticCtrl *sortic;
-//DetectPackageCtrl *detectPackage;
+SorticCtrl *sorticRobot;
 
 void setup() 
 {
-  /*
+  
   Serial.begin(9600);
-  detectPackage  = new DetectPackageCtrl();
-  */
+  Serial.println("Start Sortic");
+  sorticRobot = new SorticCtrl();
 }
 
 void loop() 
 {
-  /*
-  detectPackage->loop(DetectPackageCtrl::Event::CheckForPackage);
-  Serial.println("Sort the package!");
-  while(1);
-  */
+  
+  sorticRobot->loop();
+  
 }
