@@ -87,4 +87,8 @@ The used extern libraries for the project:
  
  
 #### Collaboration Diagram
-The figure below shows 
+The figure below shows the collaboration tree of the main FSM SorticCtrl. The arrow simbolizes an instanced object.
+
+=================== IMAGE ==========================================
+
+
