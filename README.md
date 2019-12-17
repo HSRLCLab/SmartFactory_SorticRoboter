@@ -73,3 +73,18 @@ The design pattern used to implement the software is the Finite State Machine. T
 =========== IMAGE ======================================
 
 #### UML
+The figure below shows the data model in UML notation. A separate class has been implemented for each finite state machine.
+
+================== IMAGE ===============================
+
+#### Dependency Graph
+The figure below shows the dependency tree of the main FSM SorticCtrl.
+The used extern libraries for the project:
+- 
+
+ ==================== IMAGE ==================================
+ 
+ 
+ 
+#### Collaboration Diagram
+The figure below shows 
