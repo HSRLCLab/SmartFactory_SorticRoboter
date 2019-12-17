@@ -1,4 +1,4 @@
-##SmartFactory_SorticRoboter
+#SmartFactory_SorticRoboter
 The SmartFactory_SorticRoboter is an implementation of the SmartFactory project for Sortic.
 The SmartFactory_SorticRoboter scans the rfid chip from a package and sort the package to a suitable smart box to deliver the package.
 To communicate with the SmartFactory_Box-Sortic is the SmartFactory_SorticRoboter in connection with the 
