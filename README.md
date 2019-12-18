@@ -29,6 +29,10 @@ The robot is built by different nested state machines and thus executes its task
   - Dependency Graph
   - Collaboration Diagram
 - ToDo's
+- Contributors
+- Changelog
+- License
+- Links to SmartFactory
 
 ## Working are
 The existing sorting robot is designed for 3 lines. The number of lines can be increased modularly. In addition to the three lines, the system has a loading line to load the packages.
