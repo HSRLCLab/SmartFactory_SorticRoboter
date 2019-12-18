@@ -18,7 +18,9 @@ The robot is built by different nested state machines and thus executes its task
 ## Working are
 The existing sorting robot is designed for 3 lines. The number of lines can be increased modularly. In addition to the three lines, the system has a loading line to load the packages.
 
-============================ IMAGE ================================
+![lines](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/Übersicht_Sortic_Lines.jpg)
+
+[Image: SorticRoboter line overview]
 
 ## Tools and technologies
 
