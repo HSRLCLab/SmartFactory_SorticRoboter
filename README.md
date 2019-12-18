@@ -122,6 +122,7 @@ The figure below shows the data model in UML notation. A separate class has been
 The figure below shows the dependency tree of the main FSM SorticCtrl.
 The used extern libraries for the project:
 * [SmartFactory_I2cCommunication](https://github.com/philipzellweger/SmartFactory_I2cCommunication)
+* MFRC522.h
 
 
  ==================== IMAGE ==================================
