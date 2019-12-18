@@ -11,8 +11,23 @@ The robot is built by different nested state machines and thus executes its task
 ## Table of contents
 - Working area
 - Tools and technologies
+   - Visual Studio Code
+   - Doxygen
+   - I2C
+   - SPI
+   - RFID
+   - Ultrasound
 - Hardware
+   - Sortic Robot
+     - Arduino Uno
+     - Arduino Motor Shield
+     - LEGO Motor
+     - MFRC522
 - Software
+  - Finite State Machine
+  - UML
+  - Dependency Graph
+  - Collaboration Diagram
 - ToDo's
 
 ## Working are
@@ -118,6 +133,6 @@ The figure below shows the collaboration tree of the main FSM SorticCtrl. The ar
 
 =================== IMAGE ==========================================
 
-## ToDo
+## ToDo's
 - [ ]
 - [ ]
