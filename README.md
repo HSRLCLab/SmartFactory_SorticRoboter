@@ -9,12 +9,16 @@ The design pattern allows to give the roboter a state and to change it to anothe
 The robot is built by different nested state machines and thus executes its tasks.
 
 ## Table of contents
--
--
--
--
--
--
+- Working area
+- Tools and technologies
+- Hardware
+- Software
+- ToDo's
+
+## Working are
+The existing sorting robot is designed for 3 lines. The number of lines can be increased modularly. In addition to the three lines, the system has a loading line to load the packages.
+
+============================ IMAGE ================================
 
 ## Tools and technologies
 
@@ -93,3 +97,5 @@ The figure below shows the collaboration tree of the main FSM SorticCtrl. The ar
 =================== IMAGE ==========================================
 
 ## ToDo
+- [ ]
+- [ ]
