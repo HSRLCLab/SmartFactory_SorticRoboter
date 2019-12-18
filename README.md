@@ -64,21 +64,39 @@ The Sortic robot is constructed as shown in the figure below. The robot consists
 #### Arduino Uno
 The microcontroller used is an [Arduino Uno](https://store.arduino.cc/arduino-uno-rev3). For the existing system the memory and clock speed are sufficient, for a more complex system it is recommended to change to an [Arduino Mega](https://store.arduino.cc/arduino-mega-2560-rev3).
 
+![arduino uno](https://www.distrelec.ch/Web/WebShopImages/landscape_large/6-/01/ArduinoUNO_SMD_A000073_30101956-01.jpg)
+
+[Image: [Distrelec: Arduino Uno](https://www.distrelec.ch/de/arduino-uno-rev3-smd-arduino-a000073/p/30101956)]
+
 #### Arduino Motor Shield
 A motor shield is required to control the motor. The used [motorshield](https://store.arduino.cc/arduino-motor-shield-rev3) is from Arduino and is compatible to the Arduino Uno and Mega.
+
+![motorshield](https://ardushop.hu/image/cache/catalog/termekek/arduino-motor-shield-v3-1_1-900x900.jpg)
+
+[Image: [ARDUSHOP: Arduino Motor Shield Rev3](https://ardushop.hu/arduino-motor-shield-rev3-ard35)]
 
 #### LEGO Motor
 A [Lego motor](https://www.lego.com/de-ch/product/lego-power-functions-xl-motor-8882) is used to move the Sortic robot.
 
+![legomotor](https://www.meinbaukasten.de/media/catalog/product/cache/1/image/1000x1000/040ec09b1e35df139433887a97daa66f/l/e/lego-motor-xl-8882.jpg)
+
+[Image: [Mein Baukaste: LEGO exucation Power Functions XL-Motor](https://www.meinbaukasten.de/lego-power-functions-xl-motor-8882.html)]
+
 #### MFRC522
 The sensor used to read the data on the rfid transponder is the [MFRC522](https://www.yampe.com/product/details.jsp?curren=1&la=3&type=detail&product_id=2883&product_type_id=38&brand_id=34) Rfid sensor.
+
+![rfidscanner](https://3.bp.blogspot.com/-LIRYnr98scs/WxPHATmSfdI/AAAAAAABIlA/UzwXyHHkqCQpFBX0bW4NZXvnm_ARMAEDQCPcBGAYYCw/s1600/arduino-rfid-rc522-esquema.png)
+
+[Image: [Arduino Tutorial Online: RFID-RC522](http://www.arduinotutorialonline.com/2018/06/arduino-nano-rfid-rc522-arduino-tutorial.html)]
 
 ## Software
 
 #### Finite State Machine
 The design pattern used to implement the software is the Finite State Machine. The robot always has a state. The states are transformed into other states by events. The figure below shows the finite state machine of the sortic robot in blue.  The main state machine is the SorticCtrl, which contains the finite state machine DetectPackageCtrl, SortPackageCtrl and NavigationCtrl.
 
-=========== IMAGE ======================================
+![FSM](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/FSM_MASTER.jpg)
+
+[Image: Finite State Machine SorticRoboter with SorticRoboter CommunicationHub]
 
 #### UML
 The figure below shows the data model in UML notation. A separate class has been implemented for each finite state machine.
