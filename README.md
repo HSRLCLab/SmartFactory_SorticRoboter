@@ -136,7 +136,7 @@ The figure below shows the data model in UML notation. A separate class has been
 </p>
 
 #### Dependency Graph
-The figure below shows the dependency tree of the main FSM SorticCtrl.
+The figure below shows the dependency tree of the main file.
 The used extern libraries for the project:
 * [SmartFactory_I2cCommunication](https://github.com/philipzellweger/SmartFactory_I2cCommunication)
 * MFRC522.h
@@ -147,11 +147,6 @@ The used extern libraries for the project:
     </a>
     <p align="center"><small>Click on the image to open doxygen-documentation.</p>
 </p> 
- 
-#### Collaboration Diagram
-The figure below shows the collaboration tree of the main FSM SorticCtrl. The arrow simbolises an instanced object.
-
-=================== IMAGE ==========================================
 
 ## ToDo's
 - [ ]
