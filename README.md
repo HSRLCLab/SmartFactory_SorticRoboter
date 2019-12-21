@@ -149,8 +149,8 @@ The used extern libraries for the project:
 </p> 
 
 ## ToDo's
-- [ ]
-- [ ]
+
+All the ToDo's are documented in the source code with Doxygen.
 
 # Contributors
 - [Philip Zellweger](https://github.com/philipzellweger)
