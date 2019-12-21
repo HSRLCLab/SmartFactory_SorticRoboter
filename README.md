@@ -38,7 +38,7 @@ The robot is built by different nested state machines and thus executes its task
 
 The following diagram shows the system architecture of the SmartFactory.
 
-![systemarchitecture]()
+![systemarchitecture](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/Systemarchitektur_SmartFactory.pdf)
 
 [Image: SmartFactory system architecture]
 
