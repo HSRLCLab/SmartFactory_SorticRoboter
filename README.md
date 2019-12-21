@@ -52,27 +52,27 @@ The development environment used is [Visual Studio Code](https://code.visualstud
 Doxygen was used for documenting the source code. For using Doxygen in Visual Studio code, the [Doxygen Documentation Generator](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen) extension is available.
 
 #### I2C
-The connection to the hub is via i2c. For an explanation of the technology and the library look [here](https://github.com/philipzellweger/SmartFactory_I2cCommunication).
+The connection to the [SmartFactory_SorticRoboter_CommunicationHub](https://github.com/philipzellweger/SmartFactory_SorticRoboter_CommunicationHub) is via i2c. For an explanation of the technology and the library look [here](https://github.com/philipzellweger/SmartFactory_I2cCommunication).
 
 #### SPI
-The data on the rfid transponder is read by the spi protocol. Spi is a serial data bus which is used to read the data of the rfid scanner. For an explanation of the technology look [here](http://www.circuitbasics.com/basics-of-the-spi-communication-protocol/).
+The data on the rfid transponder is transmitted by the spi protocol. Spi is a serial data bus which is used to read the data of the rfid scanner. For an explanation of the technology look [here](http://www.circuitbasics.com/basics-of-the-spi-communication-protocol/).
 
 #### RFID
-The radio frequency identification technology is used to store and read the information of the package. This is a non-contact automatic transmitter receiver system based on the physical principle of a capacitor. Electromagnetic waves read the data from the transponder with the scanner. A detailed explanation can be found [here](https://www.atlasrfidstore.com/rfid-beginners-guide/).
+The radio frequency identification technology is used to write and read the information of the package. This is a non-contact automatic transmitter receiver system based on the physical principle of a capacitor. Electromagnetic waves transmit the data from the transponder with the scanner. A detailed explanation can be found [here](https://www.atlasrfidstore.com/rfid-beginners-guide/).
 
 #### Ultrasound
-For the navigation of the robot, the position is measured by an ultrasonic sensor. The sensor emits sound waves and receives them again, so that the distance to an object can be determined. The sensor is read by the SPI protocol. A detailed explanation of the technology can be found [here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm).
+For the navigation of the robot, the position is measured by an ultrasonic sensor. The sensor emits sound waves and receives them again, so that the distance to an object can be determined. The sensor data is transmitted by the SPI protocol. A detailed explanation of the technology can be found [here](https://www.maxbotix.com/articles/how-ultrasonic-sensors-work.htm).
 
 ## Hardware
 
-The elements used for the construction are made of Lego. Lego serves as a basis, as there are no real construction requirements in the project and only means to illustrate the Sortic concept. The principle can be applied to any conceivable installation. Lego also reflects the modularity of the project. 
+The elements used for the construction are built of Lego. Lego is used, as there are no real construction requirements in the project. It is needed to illustrate the SmartFactory concept. This principle can be applied to any conceivable installation. In addition Lego also reflects the modularity of the project. 
 
 ### SorticRobot
 The Sortic robot is constructed as shown in the figure below. The robot consists of the following elements:
 - Arduino Uno
 - Arduino Motorshield V2.0
 - Sonar HC-SR04
-- Lego motor
+- Lego Motor
 - MFRC522 RFID Reader
 - Sortic substructure based on LEGO
 
@@ -88,18 +88,18 @@ The microcontroller used is an [Arduino Uno](https://store.arduino.cc/arduino-un
 [Image: [Distrelec: Arduino Uno](https://www.distrelec.ch/de/arduino-uno-rev3-smd-arduino-a000073/p/30101956)]
 
 #### Arduino Motor Shield
-A motor shield is required to control the motor. The used [motorshield](https://store.arduino.cc/arduino-motor-shield-rev3) is from Arduino and is compatible to the Arduino Uno and Mega.
+A motor shield is required to control the motor. The used [motorshield](https://store.arduino.cc/arduino-motor-shield-rev3) is from Arduino and is compatible to the Arduino Uno and Arduino Mega.
 
 ![motorshield](https://ardushop.hu/image/cache/catalog/termekek/arduino-motor-shield-v3-1_1-900x900.jpg)
 
 [Image: [ARDUSHOP: Arduino Motor Shield Rev3](https://ardushop.hu/arduino-motor-shield-rev3-ard35)]
 
 #### LEGO Motor
-A [Lego motor](https://www.lego.com/de-ch/product/lego-power-functions-xl-motor-8882) is used to move the Sortic robot.
+The [Lego motor](https://www.lego.com/de-ch/product/lego-power-functions-xl-motor-8882) is used for the linear motion of the Sortic robot.
 
 ![legomotor](https://www.meinbaukasten.de/media/catalog/product/cache/1/image/1000x1000/040ec09b1e35df139433887a97daa66f/l/e/lego-motor-xl-8882.jpg)
 
-[Image: [Mein Baukaste: LEGO exucation Power Functions XL-Motor](https://www.meinbaukasten.de/lego-power-functions-xl-motor-8882.html)]
+[Image: [Mein Baukasten: LEGO exucation Power Functions XL-Motor](https://www.meinbaukasten.de/lego-power-functions-xl-motor-8882.html)]
 
 #### MFRC522
 The sensor used to read the data on the rfid transponder is the [MFRC522](https://www.yampe.com/product/details.jsp?curren=1&la=3&type=detail&product_id=2883&product_type_id=38&brand_id=34) Rfid sensor.
@@ -111,7 +111,7 @@ The sensor used to read the data on the rfid transponder is the [MFRC522](https:
 ## Software
 
 #### Finite State Machine
-The design pattern used to implement the software is the Finite State Machine. The robot always has a state. The states are transformed into other states by events. The figure below shows the finite state machine of the sortic robot in blue.  The main state machine is the SorticCtrl, which contains the finite state machine DetectPackageCtrl, SortPackageCtrl and NavigationCtrl.
+The design pattern used to implement the software is the Finite State Machine. The robot always has a state. The states are transformed into other states by events. The figure below shows the finite state machine of the sortic robot seen in the blue area. The main state machine is the SorticCtrl, which contains the finite state machine DetectPackageCtrl, SortPackageCtrl and NavigationCtrl.
 
 ![FSM](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/FSM_MASTER.jpg)
 
@@ -134,7 +134,7 @@ The used extern libraries for the project:
  
  
 #### Collaboration Diagram
-The figure below shows the collaboration tree of the main FSM SorticCtrl. The arrow simbolizes an instanced object.
+The figure below shows the collaboration tree of the main FSM SorticCtrl. The arrow simbolises an instanced object.
 
 =================== IMAGE ==========================================
 
