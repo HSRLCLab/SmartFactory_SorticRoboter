@@ -9,30 +9,31 @@ The design pattern allows to give the robot a state and to change it to another 
 The robot is built by different nested state machines and thus executes its tasks.
 
 ## Table of contents
-- Working area
-- Tools and technologies
-   - Visual Studio Code
-   - Doxygen
-   - I2C
-   - SPI
-   - RFID
-   - Ultrasound
-- Hardware
-   - Sortic Robot
-     - Arduino Uno
-     - Arduino Motor Shield
-     - LEGO Motor
-     - MFRC522
-- Software
-  - Finite State Machine
-  - UML
-  - Dependency Graph
-  - Collaboration Diagram
-- ToDo's
-- Contributors
-- Changelog
-- License
-- Links to SmartFactory
+- [Systemarchitecture SmartFactory](#systemarchitecture-smartfactory)
+- [Working area](#working-area)
+- [Tools and technologies](tools-and-techniques)
+   - [Visual Studio Code](#visual-studi-code)
+   - [Doxygen](#doxygen)
+   - [I2C](#i2c)
+   - [SPI](#spi)
+   - [RFID](#rfid)
+   - [Ultrasound](#ultrasound)
+- [Hardware](#hardware)
+   - [Sortic Robot](#sortic-robot)
+     - [Arduino Uno](#arduino-uno)
+     - [Arduino Motor Shield](#arduino-motor-shield)
+     - [LEGO Motor](#lego-motor)
+     - [MFRC522](#mfrc522)
+- [Software](#software)
+  - [Finite State Machine](#finite-state-machine)
+  - [UML](#uml)
+  - [Dependency Graph](#dependency graph)
+  - [Collaboration Diagram](#collaboration-diagram)
+- [ToDo's](#todo's)
+- [Contributors](#contributors)
+- [Changelog](#changelog)
+- [License](#license)
+- [Links to SmartFactory](#links-to-smartfactory)
 
 ## Systemarchitecture SmartFactory
 
