@@ -164,7 +164,7 @@ DetectPackageCtrl::Event DetectPackageCtrl::doAction_checking()
     //return Event::PackageAvailableToSort;
     // TEST
 
-    // Can't read the information on the rfid chip, it worked at date XXXX and now not anymore
+    // Can't read the information on the rfid chip, it worked and now not anymore
     // Maybe Hardware defect
     // The card presents can be detected!
     RfidReaderCtrl::Event tempEvent = pRfidReader->getPackageInformation();

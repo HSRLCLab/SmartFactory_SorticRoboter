@@ -108,6 +108,13 @@ class RfidReaderCtrl
     /**
      * @brief parse package information to package struct
      * 
+     * @todo Can't read the information on the rfid chip, it worked and now not anymore
+     *       Maybe Hardware defect
+     *       The card presents can be detected!
+     *       Check the hardware if it's damaged
+     *       As second the logic to read data is not actually, the data types has been changed
+     *       Stream the bytes into the integer datatypes
+     * 
      */
     void parseInformationToStruct();
 };

@@ -91,6 +91,15 @@ void RfidReaderCtrl::parseInformationToStruct()
     DBFUNCCALLln("RfidReaderCtrl::parseInformationToStruct");
     DBINFO3ln("Parse the package information to a struct");
 
+    // Can't read the information on the rfid chip, it worked and now not anymore
+    // Maybe Hardware defect
+    // The card presents can be detected!
+    // Check the hardware if it's damaged
+    //
+    // As second the logic to read data is not actually, the data types has been changed
+    // Stream the bytes into the integer datatypes
+        // TODO
+
     for (int j = 0; j < 2; j++)
     {
         pPackagePtr->id += char(readBlockMatrix[2][j]); // 2 bytes for packageid
