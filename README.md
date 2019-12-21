@@ -34,6 +34,14 @@ The robot is built by different nested state machines and thus executes its task
 - License
 - Links to SmartFactory
 
+## Systemarchitecture SmartFactory
+
+The following diagram shows the system architecture of the SmartFactory.
+
+![systemarchitecture]()
+
+[Image: SmartFactory system architecture]
+
 ## Working area
 The existing sorting robot is designed with three transition lines. The number of lines can be extended modularly. In addition (to the three lines) the system has a upload line to load the packages.
 
