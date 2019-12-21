@@ -2,10 +2,10 @@
 
 The [SmartFactory_SorticRoboter](https://github.com/philipzellweger/SmartFactory_SorticRoboter) is an implementation of the SmartFactory project for Sortic.
 The [SmartFactory_SorticRoboter](https://github.com/philipzellweger/SmartFactory_SorticRoboter) scans the rfid chip from a package and sort the package to a suitable [SmartFactory_Box-Sortic](https://github.com/LMazzole/SmartFactory_Box-Sortic) to deliver the package.
-To communicate with the [SmartFactory_Box-Sortic](https://github.com/LMazzole/SmartFactory_Box-Sortic) is the [SmartFactory_SorticRoboter](https://github.com/philipzellweger/SmartFactory_SorticRoboter) in connection with the [SmartFactory_SorticRoboter_CommunicationHub](https://github.com/philipzellweger/SmartFactory_SorticRoboter_CommunicationHub). The connection is made via an I2C data bus. 
+To communicate with the [SmartFactory_Box-Sortic](https://github.com/LMazzole/SmartFactory_Box-Sortic) the [SmartFactory_SorticRoboter](https://github.com/philipzellweger/SmartFactory_SorticRoboter) is in connection with the [SmartFactory_SorticRoboter_CommunicationHub](https://github.com/philipzellweger/SmartFactory_SorticRoboter_CommunicationHub). The connection is made via an I2C data bus. 
 
 The programmed algorithm is based on the finite state machine design pattern. 
-The design pattern allows to give the roboter a state and to change it to another state by events.
+The design pattern allows to give the robot a state and to change it to another state by events.
 The robot is built by different nested state machines and thus executes its tasks.
 
 ## Table of contents
@@ -34,8 +34,8 @@ The robot is built by different nested state machines and thus executes its task
 - License
 - Links to SmartFactory
 
-## Working are
-The existing sorting robot is designed for 3 lines. The number of lines can be increased modularly. In addition to the three lines, the system has a loading line to load the packages.
+## Working area
+The existing sorting robot is designed with three transition lines. The number of lines can be extended modularly. In addition (to the three lines) the system has a upload line to load the packages.
 
 ![lines](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/Übersicht_Sortic_Lines.jpg)
 
