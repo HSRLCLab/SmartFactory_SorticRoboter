@@ -130,7 +130,7 @@ The figure below shows the data model in UML notation. A separate class has been
 
 <p align="center">
     <a href=https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/_sortic_ctrl_8h.html>
-        <img src="./docs/https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/class_sortic_ctrl__coll__graph.png" style="border:none;"/>
+        <img src="./docs/https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/class_sortic_ctrl__coll__graph.png" height="200" style="border:none;"/>
     </a>
     <p align="center"><small>Click on the image to open doxygen-documentation.</p>
 </p>
