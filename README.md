@@ -27,7 +27,7 @@ The robot is built by different nested state machines and thus executes its task
 - [Software](#software)
   - [Finite State Machine](#finite-state-machine)
   - [UML](#uml)
-  - [Dependency Graph](#dependency graph)
+  - [Dependency Graph](#dependency-graph)
   - [Collaboration Diagram](#collaboration-diagram)
 - [ToDo's](#todo's)
 - [Contributors](#contributors)
