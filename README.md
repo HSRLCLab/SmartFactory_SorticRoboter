@@ -78,7 +78,7 @@ The Sortic robot is constructed as shown in the figure below. The robot consists
 
 ![SorticRobot](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/SorticRoboter_Konstruktion.jpg)
 
-[Image: SmartFactory_SorticRoboter]
+[Image: SmartFactory_SorticRoboter with robot arm]
 
 #### Arduino Uno
 The microcontroller used is an [Arduino Uno](https://store.arduino.cc/arduino-uno-rev3). For the existing system the memory and clock speed are sufficient, for a more complex system it is recommended to change to an [Arduino Mega](https://store.arduino.cc/arduino-mega-2560-rev3).
