@@ -129,7 +129,7 @@ The design pattern used to implement the software is the Finite State Machine. T
 The figure below shows the data model in UML notation. A separate class has been implemented for each finite state machine.
 
 <p align="center">
-    <a href=https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/_sortic_ctrl_8h.html>
+    <a href="https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/_sortic_ctrl_8h.html">
         <img src="https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/class_sortic_ctrl__coll__graph.png" style="border:none;"/>
     </a>
     <p align="center"><small>Click on the image to open doxygen-documentation.</p>
