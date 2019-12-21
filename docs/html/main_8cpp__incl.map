@@ -1,0 +1,12 @@
+<map id="main.cpp" name="main.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="48,5,123,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,304,83,331"/>
+<area shape="rect" id="node3" href="$_sortic_ctrl_8h.html" title="The sortic controll class controlls the FSM of the sortic roboter The workflow is:" alt="" coords="163,80,250,107"/>
+<area shape="rect" id="node4" href="$_log_configuration_8h.html" title="Contains Pre&#45;Compiler directives for diffent Serialprints for Datalogin." alt="" coords="382,304,511,331"/>
+<area shape="rect" id="node5" href="$_detect_package_ctrl_8h.html" title="The detect package controll class controlls the FSM to detect packages It is a sub finite state machi..." alt="" coords="218,155,361,181"/>
+<area shape="rect" id="node9" href="$_sort_package_ctrl_8h.html" title="The sort package controll class controlls the FSM to sort the current package in the available box To..." alt="" coords="309,229,437,256"/>
+<area shape="rect" id="node10" title=" " alt="" coords="54,155,194,181"/>
+<area shape="rect" id="node6" href="$_rfid_reader_ctrl_8h.html" title="Library to controll rfid sensor." alt="" coords="169,229,285,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="267,304,357,331"/>
+<area shape="rect" id="node8" href="$_main_configuration_8h.html" title="Configurations." alt="" coords="107,304,243,331"/>
+</map>

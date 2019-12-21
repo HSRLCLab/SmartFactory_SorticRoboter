@@ -1,0 +1,4 @@
+<map id="SorticCtrl::Sortic" name="SorticCtrl::Sortic">
+<area shape="rect" id="node1" title="Parameter struct of the sortic which holds information about the current package and the sortic." alt="" coords="28,175,147,267"/>
+<area shape="rect" id="node2" href="$struct_rfid_reader_ctrl_1_1_package.html" title="Package struct holds all information of the package." alt="" coords="5,5,169,112"/>
+</map>

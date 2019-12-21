@@ -1,0 +1,8 @@
+<map id="SorticCtrl" name="SorticCtrl">
+<area shape="rect" id="node1" title="Class to controll the FSM of the sortic controll." alt="" coords="243,957,460,1372"/>
+<area shape="rect" id="node2" href="$class_detect_package_ctrl.html" title="The detect package controll class controlls the FSM to detect packages." alt="" coords="121,524,300,895"/>
+<area shape="rect" id="node3" href="$class_rfid_reader_ctrl.html" title="The rfid reader controll class controlls the rfid sensor." alt="" coords="135,175,318,384"/>
+<area shape="rect" id="node4" href="$struct_rfid_reader_ctrl_1_1_package.html" title="Package struct holds all information of the package." alt="" coords="144,5,308,112"/>
+<area shape="rect" id="node5" href="$struct_sortic_ctrl_1_1_sortic.html" title="Parameter struct of the sortic which holds information about the current package and the sortic." alt="" coords="296,408,415,500"/>
+<area shape="rect" id="node6" href="$class_sort_package_ctrl.html" title="Class to controll the FSM of the sort package controll." alt="" coords="421,524,621,895"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="DetectPackageCtrl" name="DetectPackageCtrl">
+<area shape="rect" id="node1" title="The detect package controll class controlls the FSM to detect packages." alt="" coords="5,447,184,817"/>
+<area shape="rect" id="node2" href="$class_rfid_reader_ctrl.html" title="The rfid reader controll class controlls the rfid sensor." alt="" coords="145,175,327,384"/>
+<area shape="rect" id="node3" href="$struct_rfid_reader_ctrl_1_1_package.html" title="Package struct holds all information of the package." alt="" coords="13,5,177,112"/>
+</map>

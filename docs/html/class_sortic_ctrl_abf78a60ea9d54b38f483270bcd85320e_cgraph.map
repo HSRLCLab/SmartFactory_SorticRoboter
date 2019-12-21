@@ -1,0 +1,4 @@
+<map id="SorticCtrl::entryAction_waitForArriv" name="SorticCtrl::entryAction_waitForArriv">
+<area shape="rect" id="node1" title="entry action of the state wait for arriv confirmation" alt="" coords="5,5,156,47"/>
+<area shape="rect" id="node2" href="$class_sortic_ctrl.html#a00817224b7b26e2a7492b89f28c8eb07" title="wait for i2c received message event of smart box filled" alt="" coords="204,5,339,47"/>
+</map>

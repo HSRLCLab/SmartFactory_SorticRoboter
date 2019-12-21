@@ -1,0 +1,17 @@
+<map id="DetectPackageCtrl::process" name="DetectPackageCtrl::process">
+<area shape="rect" id="node1" title="changes the state of the FSM based on the event" alt="" coords="5,235,144,276"/>
+<area shape="rect" id="node2" href="$class_detect_package_ctrl.html#ae8b444be27fccb8fa5e8e5b3dd99198b" title="entry action of the state checking" alt="" coords="200,5,347,47"/>
+<area shape="rect" id="node6" href="$class_detect_package_ctrl.html#a70a28dc3b2eefb19749aaac3863a3406" title="entry action of the state empty state" alt="" coords="192,71,355,112"/>
+<area shape="rect" id="node8" href="$class_detect_package_ctrl.html#a10bb75061b4bc46f1751de5c6b3461b2" title="entry action of the state error state" alt="" coords="197,136,349,177"/>
+<area shape="rect" id="node10" href="$class_detect_package_ctrl.html#a96e0bedd2c2b1b97b4eacbab61274d8a" title="entry action of the state full state" alt="" coords="202,201,345,243"/>
+<area shape="rect" id="node12" href="$class_detect_package_ctrl.html#a9041133d248d259615173593331d54e3" title="exit action of the state checking" alt="" coords="204,267,343,308"/>
+<area shape="rect" id="node13" href="$class_detect_package_ctrl.html#a0c8830aa432c8ff0e74efe6f84833848" title="exit action of the state empty state" alt="" coords="196,332,351,373"/>
+<area shape="rect" id="node14" href="$class_detect_package_ctrl.html#ad8fc2bb8a832c0f546036473153cd6d6" title="exit action of the state error state" alt="" coords="201,397,345,439"/>
+<area shape="rect" id="node15" href="$class_detect_package_ctrl.html#a2246169b37f29d35fa3c5be4159a841c" title="exit action of the state full state" alt="" coords="204,463,343,504"/>
+<area shape="rect" id="node3" href="$class_detect_package_ctrl.html#a7932eef4264352850c70e7583f447026" title="main action of the state checking" alt="" coords="407,5,545,47"/>
+<area shape="rect" id="node4" href="$class_rfid_reader_ctrl.html#a3ea5d2ef59d779700a480bb34781a5cf" title="get the package information on the rfid transponder" alt="" coords="597,5,780,47"/>
+<area shape="rect" id="node5" href="$class_rfid_reader_ctrl.html#ac79e330a025846bf169092268481198c" title="read block on rfid transponder" alt="" coords="828,13,999,39"/>
+<area shape="rect" id="node7" href="$class_detect_package_ctrl.html#ae2fac39b1ef8c072d7aaf53345eadb40" title="main action of the state empty state" alt="" coords="403,71,549,112"/>
+<area shape="rect" id="node9" href="$class_detect_package_ctrl.html#a0f907a7185e8d8f8c727eb994e9b0e5c" title="main action of the state error state" alt="" coords="407,136,545,177"/>
+<area shape="rect" id="node11" href="$class_detect_package_ctrl.html#a138e9b1723f9ecb5e9568340c25cfeca" title="main action of the state full state" alt="" coords="407,201,545,243"/>
+</map>

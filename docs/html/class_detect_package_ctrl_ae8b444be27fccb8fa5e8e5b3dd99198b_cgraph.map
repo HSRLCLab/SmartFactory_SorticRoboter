@@ -1,0 +1,6 @@
+<map id="DetectPackageCtrl::entryAction_checking" name="DetectPackageCtrl::entryAction_checking">
+<area shape="rect" id="node1" title="entry action of the state checking" alt="" coords="5,5,152,47"/>
+<area shape="rect" id="node2" href="$class_detect_package_ctrl.html#a7932eef4264352850c70e7583f447026" title="main action of the state checking" alt="" coords="200,5,339,47"/>
+<area shape="rect" id="node3" href="$class_rfid_reader_ctrl.html#a3ea5d2ef59d779700a480bb34781a5cf" title="get the package information on the rfid transponder" alt="" coords="387,5,569,47"/>
+<area shape="rect" id="node4" href="$class_rfid_reader_ctrl.html#ac79e330a025846bf169092268481198c" title="read block on rfid transponder" alt="" coords="617,13,788,39"/>
+</map>

@@ -1,0 +1,10 @@
+<map id="MainConfiguration.h" name="MainConfiguration.h">
+<area shape="rect" id="node1" title="Configurations." alt="" coords="167,5,303,32"/>
+<area shape="rect" id="node2" href="$_rfid_reader_ctrl_8h.html" title="Library to controll rfid sensor." alt="" coords="177,80,293,107"/>
+<area shape="rect" id="node3" href="$_detect_package_ctrl_8h.html" title="The detect package controll class controlls the FSM to detect packages It is a sub finite state machi..." alt="" coords="84,155,227,181"/>
+<area shape="rect" id="node8" href="$_rfid_reader_ctrl_8cpp.html" title="Library to controll rfid sensor MFRC522." alt="" coords="251,155,382,181"/>
+<area shape="rect" id="node4" href="$_detect_package_ctrl_8cpp.html" title="The detect package controll class controlls the FSM to detect packages It is a sub finite state machi..." alt="" coords="5,229,161,256"/>
+<area shape="rect" id="node5" href="$_sortic_ctrl_8h.html" title="The sortic controll class controlls the FSM of the sortic roboter The workflow is:" alt="" coords="185,229,272,256"/>
+<area shape="rect" id="node6" href="$main_8cpp.html" title=" " alt="" coords="135,304,210,331"/>
+<area shape="rect" id="node7" href="$_sortic_ctrl_8cpp.html" title="The sortic controll class controlls the FSM of the sortic roboter The workflow is:" alt="" coords="234,304,335,331"/>
+</map>

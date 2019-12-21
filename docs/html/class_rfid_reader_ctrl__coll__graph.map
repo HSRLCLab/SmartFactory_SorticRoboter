@@ -1,0 +1,4 @@
+<map id="RfidReaderCtrl" name="RfidReaderCtrl">
+<area shape="rect" id="node1" title="The rfid reader controll class controlls the rfid sensor." alt="" coords="5,175,188,384"/>
+<area shape="rect" id="node2" href="$struct_rfid_reader_ctrl_1_1_package.html" title="Package struct holds all information of the package." alt="" coords="15,5,179,112"/>
+</map>

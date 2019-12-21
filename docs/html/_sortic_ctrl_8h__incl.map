@@ -1,0 +1,11 @@
+<map id="SorticCtrl.h" name="SorticCtrl.h">
+<area shape="rect" id="node1" title="The sortic controll class controlls the FSM of the sortic roboter The workflow is:" alt="" coords="393,5,479,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="280,229,357,256"/>
+<area shape="rect" id="node3" href="$_log_configuration_8h.html" title="Contains Pre&#45;Compiler directives for diffent Serialprints for Datalogin." alt="" coords="382,229,511,256"/>
+<area shape="rect" id="node4" href="$_detect_package_ctrl_8h.html" title="The detect package controll class controlls the FSM to detect packages It is a sub finite state machi..." alt="" coords="154,80,297,107"/>
+<area shape="rect" id="node8" href="$_sort_package_ctrl_8h.html" title="The sort package controll class controlls the FSM to sort the current package in the available box To..." alt="" coords="372,155,500,181"/>
+<area shape="rect" id="node9" title=" " alt="" coords="575,80,715,107"/>
+<area shape="rect" id="node5" href="$_rfid_reader_ctrl_8h.html" title="Library to controll rfid sensor." alt="" coords="130,155,246,181"/>
+<area shape="rect" id="node6" title=" " alt="" coords="5,229,96,256"/>
+<area shape="rect" id="node7" href="$_main_configuration_8h.html" title="Configurations." alt="" coords="120,229,256,256"/>
+</map>
