@@ -89,6 +89,18 @@ The Sortic robot is constructed as shown in the figure below. The robot consists
 
 [Image: SmartFactory_SorticRoboter with robot arm]
 
+#### Electrical shematic
+
+The following illustrations show the electro shema of the [SmartFactory_SorticRoboter](https://github.com/philipzellweger/SmartFactory_SorticRoboter). The connection to the [SmartFactory_SorticRoboter_CommunicationHub](https://github.com/philipzellweger/SmartFactory_SorticRoboter_CommunicationHub) is shown on it.
+
+![Breadbord](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/SorticRoboter_with_CommunicationHub_Fritzing/SorticRoboter_with_CommunicationHub_BreadBoard.jpg)
+
+[Image: Breadboard SmartFactory_SorticRoboter with SmartFactory_SorticRoboter_CommunicationHub]
+
+![Electrical shematic](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/SorticRoboter_with_CommunicationHub_Fritzing/SorticRoboter_with_CommunicationHub_BreadBoard.jpg)
+
+[Image: Electrical shematic SmartFactory_SorticRoboter with SmartFactory_SorticRoboter_CommunicationHub]
+
 #### Arduino Uno
 The microcontroller used is an [Arduino Uno](https://store.arduino.cc/arduino-uno-rev3). For the existing system the memory and clock speed are sufficient, for a more complex system it is recommended to change to an [Arduino Mega](https://store.arduino.cc/arduino-mega-2560-rev3).
 
