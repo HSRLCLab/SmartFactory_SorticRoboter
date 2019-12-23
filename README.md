@@ -20,6 +20,7 @@ The robot is built by different nested state machines and thus executes its task
    - [Ultrasound](#ultrasound)
 - [Hardware](#hardware)
    - [Sortic Robot](#sortic-robot)
+     - [Electrical shematic](#electrical-shematic)
      - [Arduino Uno](#arduino-uno)
      - [Arduino Motor Shield](#arduino-motor-shield)
      - [LEGO Motor](#lego-motor)
