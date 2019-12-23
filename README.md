@@ -143,7 +143,7 @@ The used extern libraries for the project:
 * MFRC522.h
 
 <p align="center">
-    <a href=https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/main_8cpp.html>
+    <a href=https://philipzellweger.github.io/SmartFactory_SorticRoboter/main_8cpp.html>
         <img src="https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/html/main_8cpp__incl.png" style="border:none;"/>
     </a>
     <p align="center"><small>Click on the image to open doxygen-documentation.</p>
