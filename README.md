@@ -97,7 +97,7 @@ The following illustrations show the electro shema of the [SmartFactory_SorticRo
 
 [Image: Breadboard SmartFactory_SorticRoboter with SmartFactory_SorticRoboter_CommunicationHub]
 
-![Electrical shematic](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/SorticRoboter_with_CommunicationHub_Fritzing/SorticRoboter_with_CommunicationHub_BreadBoard.jpg)
+![Electrical shematic](https://github.com/philipzellweger/SmartFactory_SorticRoboter/blob/master/docs/SorticRoboter_with_CommunicationHub_Fritzing/SorticRoboter_with_CommunicationHub_electrical_shematic.jpg)
 
 [Image: Electrical shematic SmartFactory_SorticRoboter with SmartFactory_SorticRoboter_CommunicationHub]
 
